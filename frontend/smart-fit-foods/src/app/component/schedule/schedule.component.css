@@ -1,0 +1,60 @@
+.card-taolich,
+.card-datlich {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 15px;
+  margin: 50px auto;
+  border-radius: 10px;
+}
+
+#external-events {
+  padding: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  text-align: left;
+}
+
+#external-events h4 {
+  font-size: 16px;
+  margin-top: 0;
+  padding-top: 1em;
+}
+
+#external-events .fc-event {
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+#external-events p {
+  margin: 1.5em 0;
+  font-size: 11px;
+  color: #666;
+}
+
+#external-events p input {
+  margin: 0;
+  vertical-align: middle;
+}
+
+#calendar {
+  float: right;
+}
+
+.fc-event {
+  padding: 5px 10px;
+}
+
+.fc-event-container a {
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.fc-day-grid-event>.fc-content {
+  white-space: normal !important;
+}
+
+.fc-time {
+  display: none;
+}
