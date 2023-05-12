@@ -1,13 +1,15 @@
 package com.example.backend.model.post;
 
-import com.example.backend.model.person.User;
+import com.example.backend.dto.PostDTO;
+import com.example.backend.model.person.Users;
+import com.example.backend.model.recipe.Recipe;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -19,9 +21,27 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
-    private LocalDateTime time;
+    private String time;
     private String description;
+    private String img;
     @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User user;
+    @JoinColumn(name = "author")
+    private Users users;
+    @ManyToOne
+    @JoinColumn(name = "recipe")
+    private Recipe recipe;
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "post")
+    private List<Comment>comments;
+    public Post(PostDTO postDTO){
+        this.time = postDTO.getTime();
+        this.description = postDTO.getDescription();
+        this.img = postDTO.getImg();
+        this.title = postDTO.getTitle();
+        Recipe recipe = new Recipe();
+        recipe.setId(postDTO.getRecipe());
+        this.recipe = recipe;
+        Users users = new Users();
+        users.setId(postDTO.getUser());
+        this.users = users;
+    }
 }

@@ -1,9 +1,7 @@
 package com.example.backend.model.recipe;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.backend.dto.RecipeDTO;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class RecipeDetail {
     @EmbeddedId
     private RecipeDetailId recipeDetailId;

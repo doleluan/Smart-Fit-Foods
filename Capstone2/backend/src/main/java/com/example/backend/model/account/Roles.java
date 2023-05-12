@@ -1,18 +1,17 @@
 package com.example.backend.model.account;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 @Getter
 @Setter
+    @AllArgsConstructor
 @NoArgsConstructor
-@AllArgsConstructor
+@ToString
 @Entity
 public class Roles {
     @Id
