@@ -95,7 +95,6 @@ export class FoodComponent implements OnInit {
   }
   getIdFood(item: Food) {
     this.idFood=item.id;
-    console.log("123")
   }
 
   inputQuantity(value) {

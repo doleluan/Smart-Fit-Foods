@@ -2,7 +2,9 @@ package com.example.backend.controller;
 
 import com.example.backend.dto.UserDTO;
 import com.example.backend.dto.UserInfo;
+import com.example.backend.model.account.Roles;
 import com.example.backend.model.person.Users;
+import com.example.backend.services.Impl.UserDetailServicesImpl;
 import com.example.backend.services.Impl.UserServices;
 import com.example.backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +12,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @CrossOrigin("*")
@@ -26,6 +29,8 @@ public class UserRestController {
     AuthenticationManager authenticationManager;
     @Autowired
     private UserServices userService;
+    @Autowired
+    private UserDetailServicesImpl userDetailServices;
     @PostMapping("/registration")
     public ResponseEntity<?> register(@RequestBody UserDTO userDTO) {
         if(userService.findByUserName(userDTO.getUsername()) != null){
@@ -48,6 +53,9 @@ public ResponseEntity<Object> login(@RequestBody UserDTO userDTO) {
         String token = httpServletRequest.getHeader("Authorization").split(" ")[1].trim();
         String username = this.jwtUtil.getUsername(token);
         UserInfo userInfo = new UserInfo(this.userService.findByUserName(username));
+//        get list user
+        Collection<? extends GrantedAuthority> authorities = this.userDetailServices.loadUserByUsername(username).getAuthorities();
+        userInfo.setRoles(new ArrayList(authorities));
         if (userInfo==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

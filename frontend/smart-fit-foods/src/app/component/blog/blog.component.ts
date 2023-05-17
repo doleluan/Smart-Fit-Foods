@@ -12,6 +12,8 @@ import {ToastrService} from "ngx-toastr";
 import {PostDTO} from "../../dto/PostDTO";
 import {CommentDTO} from "../../dto/CommentDTO";
 import {CommentService} from "../../services/post/comment.service";
+import {UserDTO} from "../../dto/UserDTO";
+import {Role} from "../../model/enum/Roles";
 
 @Component({
   selector: 'app-blog',
@@ -20,7 +22,7 @@ import {CommentService} from "../../services/post/comment.service";
 })
 export class BlogComponent implements OnInit {
   formGroup: FormGroup;
-  user: User;
+  user: UserDTO;
   recipes: Recipe[]=[];
   recipe: Recipe;
   post: Post[]=[];
@@ -47,9 +49,7 @@ export class BlogComponent implements OnInit {
     this.loadAPI = new Promise(resolve => {
       this.loadScript();
     });
-
   }
-
   buidForm() {
     this.formGroup = this.formBuilder.group({
       description: ['', [Validators.required]],

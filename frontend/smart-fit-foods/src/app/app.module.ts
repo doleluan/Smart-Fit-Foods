@@ -19,6 +19,7 @@ import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ListRecipeComponent } from './component/list-recipe/list-recipe.component';
 import { ScheduleComponent } from './component/schedule/schedule.component';
+import { ProfileComponent } from './component/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ScheduleComponent } from './component/schedule/schedule.component';
     RecipeComponent,
     ListRecipeComponent,
     ScheduleComponent,
+    ProfileComponent,
 
   ],
   imports: [

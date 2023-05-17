@@ -35,7 +35,7 @@ public class UserServices implements IUserServices {
         account.setPassword(this.passwordEncoder.encode(userDTO.getPassword()));
 ////        add new role_user
         Account account1 = this.iAccountServices.saveAccount(account);
-        KeyAccountRole keyAccountRole = new KeyAccountRole(account1,new Roles(1,"aaa"));
+        KeyAccountRole keyAccountRole = new KeyAccountRole(account1,new Roles(1,""));
         AccountRoles accountRoles = new AccountRoles(keyAccountRole);
         this.iAccountRolesServices.saveAccountRoles(accountRoles);
         //        add new user
@@ -47,6 +47,7 @@ public class UserServices implements IUserServices {
     @Override
     public Users findByUserName(String userName) {
         return iUserRepository.findByUsername(userName).orElse(null);
+
     }
     @Override
     public List<Users> findAllUsers() {
