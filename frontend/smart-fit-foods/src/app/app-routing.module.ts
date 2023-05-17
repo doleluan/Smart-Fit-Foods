@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./component/login/login.component";
 import {FoodComponent} from "./component/food/food.component";
 import {HomeComponent} from "./component/home/home.component";
@@ -10,7 +10,9 @@ import {BlogComponent} from "./component/blog/blog.component";
 import {RecipeComponent} from "./component/recipe/recipe.component";
 import {ListRecipeComponent} from "./component/list-recipe/list-recipe.component";
 import {ScheduleComponent} from "./component/schedule/schedule.component";
-
+import {AuthGuard} from "./guards/auth.guard";
+import {Role} from "./model/enum/Roles";
+import {ProfileComponent} from "./component/profile/profile.component";
 
 const routes: Routes = [
   {
@@ -21,41 +23,62 @@ const routes: Routes = [
     path:"login", component:LoginComponent
   },
   {
-    path: "food",component:FoodComponent
+    path: "food",component:FoodComponent,
+    canActivate:[AuthGuard],
+    data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
   },
   {
     path: "health",
-    component: HealthComponent
+    component: HealthComponent,
+    canActivate:[AuthGuard],
+    data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
   },
   {
     path: "life",
-    component: LifeComponent
+    component: LifeComponent,
+    canActivate:[AuthGuard],
+    data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
   },
   {
     path:"registor",
-    component: RegistorComponent
+    component: RegistorComponent,
   },
   {
     path:"blog",
-    component:BlogComponent
+    component:BlogComponent,
+    canActivate:[AuthGuard],
+    data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
   },
   {
     path:"recipes",
-    component:RecipeComponent
+    component:RecipeComponent,
+    canActivate:[AuthGuard],
+    data:{roles:[Role.ADMIN,Role.EMPLOYEE]}
   },
   {
     path: "list",
-    component: ListRecipeComponent
+    component: ListRecipeComponent,
+    canActivate:[AuthGuard],
+    data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
   },
   {
     path: "list/:recipes",
-    component: ListRecipeComponent
+    component: ListRecipeComponent,
+    canActivate:[AuthGuard],
+    data:{roles:[Role.ADMIN]}
   },
   {
     path: "schedule",
-    component: ScheduleComponent
+    component: ScheduleComponent,
+    canActivate:[AuthGuard],
+    data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
+  },
+  {
+    path: "profile",
+    component:ProfileComponent,
+    canActivate:[AuthGuard],
+    data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
   }
-
 ];
 
 @NgModule({

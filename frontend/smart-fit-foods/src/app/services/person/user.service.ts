@@ -14,13 +14,6 @@ export class UserService {
   login(user){
     return this.httpClient.post<token>(`${this.URL}/login`,user)
   }
-  getUser(user){
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'Authorization': `Bearer ${localStorage.getItem('token')}`
-    // })
-    return this.httpClient.get(`${this.URL}/food`)
-  }
   getUserCurrent(){
     const headers = {
       'Content-Type': 'application/json',

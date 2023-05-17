@@ -36,9 +36,9 @@
                      alt="">
               </div>
               <div class="drop-down-menu menu-user" [ngStyle]="{'display': isDropDownMenuOpen ? 'block' : 'none'}">
-                <div routerLink="/blog"><i class="fa-regular fa-newspaper"></i>Đăng bài viết</div>
+                <div routerLink="/blog"><i class="fa-regular fa-newspaper"></i>Bài đăng</div>
                 <div routerLink="/recipes"><i class="fa-solid fa-bowl-food"></i>Thêm công thức</div>
-                <div><i class="fa-regular fa-user"></i>Edit profile</div>
+                <div routerLink="/profile"> <i class="fa-regular fa-user" ></i>Profile</div>
                 <div (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i>Logout</div>
               </div>
             </li>

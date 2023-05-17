@@ -1,0 +1,126 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="if-avatar">
+        <div class="avatar-wrapper">
+          <img class="profile-pic" src="" />
+          <div class="upload-button">
+          </div>
+          <input class="file-upload" type="file" accept="image/*" />
+        </div>
+        <div
+          style="text-align: center;display: inline-block;position: relative;top: -30px;right: -30px;">
+          <h1>Nguyen Van Tuan </h1>
+
+        </div>
+        <div class="row align-items-center">
+          <div class="col">
+            <!-- Nav -->
+            <ul class="nav nav-tabs nav-overflow header-tabs">
+              <li class="nav-item">
+                <a (click)="getItem()" class="nav-link dropdown-toggle active" value="taikhoan"
+                   data-toggle="dropdown">Tài khoản</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item">Quản lý tài khoản</a>
+                  <a (click)="changePass()" class="dropdown-item reset-pass">Đổi mật
+                    khẩu</a>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <!-- Tài khoản -->
+      <div class="row" id="taikhoan">
+        <div class="col-md-12">
+          <form action="/settings" method="post">
+            <div class="row">
+              <div class="col-md-9"
+                   style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 10px; padding: 20px;">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="fullname">Fullname:</label><br>
+                    <input class="form-control" type="text" id="fullname"
+                           name="fullname" />
+                  </div>
+                  <div class="form-group">
+                    <label >Address:</label><br>
+                    <div style="display: flex;">
+                      <select (change)="handleProvinceChangeProvinces($event)">
+                        <option [ngValue]="item" *ngFor="let item of this.provinces">{{item.name}}</option>
+                      </select>
+                      <select (change)="handleProvinceDistricts($event)" [disabled]="!this.provincesChoice" class="select">
+                        <option *ngIf="!this.provincesChoice">Hãy Chọn Tỉnh/Thành</option>
+                        <option [ngValue]="item" *ngFor="let item of this.provincesChoice?.districts">{{item.name}}</option>
+                      </select>
+                      <select [disabled]="!this.districtsChoice">
+                        <option *ngIf="!this?.districtsChoice"> Hãy Chọn Quận/Huyện</option>
+                        <option [ngValue]="item" *ngFor="let item of this?.districtsChoice?.wards">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="birthday">Birthday:</label><br>
+                    <input class="form-control" type="date" id="birthday"
+                           name="birthday" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="gender">Gender:</label><br>
+                    <select style="border-radius: 10px;" name="gender" id="gender">
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone:</label><br>
+                    <input class="form-control" type="text" id="phone" name="phone" />
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div style="text-align: left; padding-top: 10px; ">
+                    <input type="submit" value="Save" style="border-radius: 10px;" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Mật khẩu -->
+      <div class="row" id="matkhau" style="display: none;">
+        <div class="col-md-12">
+          <form action="/settings" method="post">
+            <div class="row">
+              <div class="col-md-9"
+                   style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 10px; padding: 20px;">
+                <div class="form-group">
+                  <label for="current-pass">Password Current</label>
+                  <input type="password" id="current-pass" name="current-pass"
+                         class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="new-pass">Password New</label>
+                  <input type="password" id="new-pass" name="new-pass"
+                         class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="verify">Verify</label>
+                  <input type="password" id="verify" name="verify" class="form-control">
+                </div>
+                <div class="form-group">
+                  <div class="btn btn-confirm"
+                       style="display: inline-block;cursor: pointer; padding: 10px 15px;">
+                    Reset Password</div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

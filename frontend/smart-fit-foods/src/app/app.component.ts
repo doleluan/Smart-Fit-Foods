@@ -95,7 +95,6 @@ export class AppComponent implements OnInit{
     const dropDownMenuEl = this.elRef.nativeElement.querySelector('.drop-down-menu');
     this.elRef.nativeElement.querySelector('.chatbot-container').style.animation = 'hide 0.5s ease-in-out forwards';
   }
-
   userChoice() {
     this.isDropDownMenuOpen = !this.isDropDownMenuOpen;
   }

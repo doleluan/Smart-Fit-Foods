@@ -1,8 +1,11 @@
 package com.example.backend.dto;
 
+import com.example.backend.model.account.Roles;
 import com.example.backend.model.person.Gender;
 import com.example.backend.model.person.Users;
 import lombok.*;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,6 +20,7 @@ public class UserInfo {
     private String address;
     private Double phone_number;
     private Gender gender;
+    private List<Roles> roles;
     public UserInfo(Users user){
         this.id = user.getId();
         this.username = user.getUsername().getUsername();
