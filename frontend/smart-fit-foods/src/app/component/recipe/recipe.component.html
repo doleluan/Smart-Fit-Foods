@@ -110,7 +110,7 @@
         <span>&nbsp;</span>
         <span *ngIf="formGroup.controls.content.hasError('required') && formGroup.controls.content.touched" style="color: red">Mô tả không được để trống</span>
       </div>
-      <button *ngIf="formArray.valid && formGroup.valid && formArrayImg.valid" class="btn btn-success" type="submit" name="submit" (click)="submitFood()">Submit</button>
+      <button *ngIf="formArray.valid && formGroup.valid && formArrayImg.valid" class="btn btn-success" type="submit" name="submit" (click)="addRecipe()">Submit</button>
     </form>
   </div>
 </div>

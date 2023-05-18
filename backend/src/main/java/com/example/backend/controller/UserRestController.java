@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.UserDTO;
+import com.example.backend.dto.UserEditDTO;
 import com.example.backend.dto.UserInfo;
 import com.example.backend.model.account.Roles;
 import com.example.backend.model.person.Users;
@@ -38,8 +39,8 @@ public class UserRestController {
         }
         return new ResponseEntity<>(userService.saveUser(userDTO), HttpStatus.CREATED);
     }
-@PostMapping("/login")
-public ResponseEntity<Object> login(@RequestBody UserDTO userDTO) {
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody UserDTO userDTO) {
     UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken
             (userDTO.getUsername(), userDTO.getPassword());
     authenticationManager.authenticate(token);
@@ -59,6 +60,11 @@ public ResponseEntity<Object> login(@RequestBody UserDTO userDTO) {
         if (userInfo==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity<>(userInfo,HttpStatus.OK);
+    }
+    @PutMapping("/edit")
+    public ResponseEntity<UserInfo> editUser(@RequestBody UserEditDTO userEditDTO){
+      UserInfo userInfo =  this.userService.editUser(userEditDTO);
         return new ResponseEntity<>(userInfo,HttpStatus.OK);
     }
 }

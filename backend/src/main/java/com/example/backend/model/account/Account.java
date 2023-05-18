@@ -1,6 +1,7 @@
 package com.example.backend.model.account;
 
 import com.example.backend.dto.UserDTO;
+import com.example.backend.dto.UserEditDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,6 +38,13 @@ public class Account implements UserDetails {
         this.username = userDTO.getUsername();
         this.setFlag(false);
         this.authorities = new ArrayList<>();
+    }
+    public Account(UserEditDTO userEditDTO){
+        this.username = userEditDTO.getUsername();
+        this.authorities = new ArrayList<>();
+    }
+    public Account(String username){
+        this.username = username;
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

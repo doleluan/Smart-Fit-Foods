@@ -1,6 +1,8 @@
 package com.example.backend.services.Impl;
 
 import com.example.backend.dto.UserDTO;
+import com.example.backend.dto.UserEditDTO;
+import com.example.backend.dto.UserInfo;
 import com.example.backend.model.account.Account;
 import com.example.backend.model.account.AccountRoles;
 import com.example.backend.model.account.KeyAccountRole;
@@ -11,10 +13,13 @@ import com.example.backend.services.IAccountRolesServices;
 import com.example.backend.services.IAccountServices;
 import com.example.backend.services.IUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 @Service
 public class UserServices implements IUserServices {
@@ -26,6 +31,8 @@ public class UserServices implements IUserServices {
     private IAccountServices iAccountServices;
     @Autowired
     private IAccountRolesServices iAccountRolesServices;
+    @Autowired
+    private UserDetailServicesImpl userDetailServices;
     @Override
     public Users saveUser(UserDTO userDTO) {
 
@@ -52,5 +59,17 @@ public class UserServices implements IUserServices {
     @Override
     public List<Users> findAllUsers() {
         return iUserRepository.findAll();
+    }
+
+    @Override
+    public UserInfo editUser(UserEditDTO userEditDTO) {
+
+        Users users = new Users(userEditDTO);
+        this.iUserRepository.save(users);
+        UserInfo userInfo = new UserInfo(this.findByUserName(userEditDTO.getUsername()));
+//        get list user
+        Collection<? extends GrantedAuthority> authorities = this.userDetailServices.loadUserByUsername(userEditDTO.getUsername()).getAuthorities();
+        userInfo.setRoles(new ArrayList(authorities));
+        return userInfo;
     }
 }

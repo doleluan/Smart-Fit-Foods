@@ -157,4 +157,22 @@ export class RecipeComponent implements OnInit {
       idImg.src = reader.result as string;
     }
   }
+
+  async addRecipe() {
+    let src = "";
+    document.getElementById("pop-up-container").style.display="block";
+    for (let [index,file] of this.formArrayImg.controls.entries()) {
+      if (file.value!=null){
+        if (file.value.file.type != 'image/png' && file.value.file.type != 'image/jpeg') {
+        } else {
+          let filePath = `recipe-imgs${new Date().toISOString()}${file.value.file.name}`
+          let fileRef = this.fireStorage.ref(filePath);
+          await this.fireStorage.upload(filePath, file.value.file).snapshotChanges().toPromise();
+          const url = await fileRef.getDownloadURL().toPromise();
+          src+=`${url}a0222i1`;
+        }
+      }
+      continue;
+    }
+  }
 }

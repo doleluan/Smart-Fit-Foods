@@ -327,26 +327,26 @@ jQuery(document).ready(function () {
 });
 
 
+//
+// var readURL = function (input) {
+//   if (input.files && input.files[0]) {
+//     var reader = new FileReader();
+//
+//     reader.onload = function (e) {
+//       jQuery('.profile-pic').attr('src', e.target.result);
+//     }
+//
+//     reader.readAsDataURL(input.files[0]);
+//   }
+// }
+//
+// jQuery(".file-upload").on('change', function () {
+//   readURL(this);
+// });
 
-var readURL = function (input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      jQuery('.profile-pic').attr('src', e.target.result);
-    }
-
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
-jQuery(".file-upload").on('change', function () {
-  readURL(this);
-});
-
-jQuery(".upload-button").on('click', function () {
-  jQuery(".file-upload").click();
-});
+// jQuery(".upload-button").on('click', function () {
+//   jQuery(".file-upload").click();
+// });
 jQuery('.nav-item a').click(function (e) {
   e.preventDefault();
   jQuery('.nav-item a.active').removeClass('active');

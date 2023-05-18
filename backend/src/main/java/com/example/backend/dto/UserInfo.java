@@ -20,6 +20,8 @@ public class UserInfo {
     private String address;
     private Double phone_number;
     private Gender gender;
+    private String name;
+//    private String name
     private List<Roles> roles;
     public UserInfo(Users user){
         this.id = user.getId();
@@ -29,5 +31,6 @@ public class UserInfo {
         this.address = user.getAddress();
         this.email = user.getEmail();
         this.phone_number = user.getPhone_number();
+        this.name = user.getName();
     }
 }
