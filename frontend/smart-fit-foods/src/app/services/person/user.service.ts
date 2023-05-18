@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {UserDTO} from "../../dto/UserDTO";
+import {UserEditDTO} from "../../dto/UserEditDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,14 @@ export class UserService {
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     };
     return this.httpClient.get<UserDTO>(`${this.URL}/getUserInfor`,{headers:headers});
+  }
+  editUser(userDTO: UserEditDTO){
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    };
+    console.log(userDTO);
+    return this.httpClient.put<UserDTO>(`${this.URL}/edit`,userDTO,{headers:headers});
   }
 }
 export interface token {
