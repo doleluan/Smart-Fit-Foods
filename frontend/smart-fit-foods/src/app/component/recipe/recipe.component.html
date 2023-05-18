@@ -3,13 +3,6 @@
        style="background-image: url('/assets/images/bg_breadcrumbs.jpg');">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-          <h1>Danh sách các món ăn </h1>
-          <ol class="breadcrumb text-center">
-            <li><a href="/index.html" style="font-size: 14px;">Trang chủ |</a></li>
-            <li class="active" style="font-size: 14px;">Đồ ăn chay</li>
-          </ol>
-        </div>
       </div>
     </div>
   </div>
@@ -25,14 +18,33 @@
         <span>&nbsp;</span>
         <span *ngIf="formGroup.controls.name.hasError('required') && formGroup.controls.name.touched" style="color: red">Tên công thức không được để trống</span>
       </div>
-      <div class="form-group hinhanh" style="text-align: left;">
-        <label><b>Hình ảnh</b></label> <br>
-        <img id="recipes-imgs-firebase" class="profile-pic" src="../../../assets/images/logo.png"/>
-        <input  formControlName="imgs" class="file-upload" type="file" accept="image/*" (change)="addFile($event)" />
-      </div>
+<!--      <div class="form-group hinhanh" style="text-align: left;">-->
+<!--        <label><b>Hình ảnh</b></label> <br>-->
+<!--        <img id="recipes-imgs-firebase" class="profile-pic" src="../../../assets/images/logo.png"/>-->
+<!--        <input  formControlName="imgs" class="file-upload" type="file" accept="image/*" (change)="addFile($event)" />-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <span>&nbsp;</span>-->
+<!--        <span *ngIf="formGroup.controls.imgs.hasError('required') && formGroup.controls.imgs.touched" style="color: red">Hình ảnh không được để trống</span>-->
+<!--      </div>-->
+
+            <div  style="text-align: left;">
+              <form class="fomarray-img" [formArrayName]="formArrayImg">
+                <div class="div-formarrayRecipe" *ngFor="let img of this.formArrayImg.controls;index as i" [formGroupName]="i">
+                  <label  class="label-add-picture"   for="addPictureRecipe{{i}}">
+                    <img id="label-img{{i}}" class="addRecipe-img" src="../../../assets/images/logo.png">
+                    <div>
+                      <span>&nbsp;</span>
+<!--                      <span disable *ngIf="formArray.controls[i].hasError('required')" style="color:red;">Không được bỏ trống ảnh</span>-->
+                    </div>
+                    <input (change)="uploadImg($event,i)" hidden formControlName="{{i}}" accept="image/png, image/jpeg"  id="addPictureRecipe{{i}}" type="file" >
+                  </label>
+                </div>
+              </form>
+            </div>
+
       <div>
-        <span>&nbsp;</span>
-        <span *ngIf="formGroup.controls.imgs.hasError('required') && formGroup.controls.imgs.touched" style="color: red">Hình ảnh không được để trống</span>
+        <button [hidden]="this.formArrayImg.length==4 || this.formArrayImg.invalid" class="btn btn-primary" style="margin-top: 20px"  (click)="addPicture()" >Thêm ảnh</button>
       </div>
       <div formArrayName="formArray">
         <div *ngFor="let foodGroups of formArray.controls; let i = index" [formGroupName]="i"  class="form-group nguyenlieu" style="text-align: left;">
@@ -69,19 +81,6 @@
                 </div>
               </td>
             </tr>
-<!--            <tr style="border-left: 1px solid transparent;border-right: 1px solid transparent;border-bottom: 1px solid transparent;">-->
-<!--              <td style="border: none">-->
-<!--                <span>&nbsp;</span>-->
-<!--                <span *ngIf="formArray.controls[i].get('food_detail_id').errors?.required && formArray.controls[i].get('food_detail_id').touched" style="color: red">Nguyên liệu không được để trống</span>-->
-<!--              </td>-->
-<!--              <td style="border: none">-->
-<!--                <span>&nbsp;</span>-->
-<!--                <span *ngIf="formArray.controls[i].get('quantity').errors?.pattern && formArray.controls[i].get('quantity').touched-->
-<!--                || formArray.controls[i].get('quantity').errors?.validMoreThan0 && formArray.controls[i].get('quantity').touched" style="color: red">-->
-<!--                  Nguyên liệu phải là số và nguyên liệu phải lớn hơn 0</span>-->
-<!--              </td>-->
-<!--            </tr>-->
-
           </table>
         </div>
       </div>
@@ -111,7 +110,7 @@
         <span>&nbsp;</span>
         <span *ngIf="formGroup.controls.content.hasError('required') && formGroup.controls.content.touched" style="color: red">Mô tả không được để trống</span>
       </div>
-      <button *ngIf="formArray.valid && formGroup.valid" class="btn btn-success" type="submit" name="submit" (click)="submitFood()">Submit</button>
+      <button *ngIf="formArray.valid && formGroup.valid && formArrayImg.valid" class="btn btn-success" type="submit" name="submit" (click)="submitFood()">Submit</button>
     </form>
   </div>
 </div>

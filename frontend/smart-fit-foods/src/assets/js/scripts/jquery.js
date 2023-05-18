@@ -325,3 +325,63 @@ jQuery(document).ready(function () {
     return false;
   }
 });
+
+
+
+var readURL = function (input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      jQuery('.profile-pic').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+jQuery(".file-upload").on('change', function () {
+  readURL(this);
+});
+
+jQuery(".upload-button").on('click', function () {
+  jQuery(".file-upload").click();
+});
+jQuery('.nav-item a').click(function (e) {
+  e.preventDefault();
+  jQuery('.nav-item a.active').removeClass('active');
+  jQuery(this).addClass('active');
+  if (jQuery(this).attr('value') == "ve") {
+    jQuery("#taikhoan").css("display", "none");
+  } else {
+    jQuery("#taikhoan").css("display", "block");
+  }
+});
+
+jQuery(".reset-pass").click(function () {
+  jQuery("#taikhoan").css("display", "none");
+  jQuery("#matkhau").css("display", "block");
+});
+jQuery(".tk").click(function () {
+  jQuery("#taikhoan").css("display", "block");
+  jQuery("#matkhau").css("display", "none");
+});
+
+jQuery('.nav-item').hover(function () {
+  // Khi di chuột vào nav-item
+  var menu = jQuery(this).find('.dropdown-menu1');
+  // Kiểm tra xem dropdown-menu đã hiển thị hay chưa
+  if (!menu.hasClass('show')) {
+    // Nếu chưa hiển thị, sử dụng slideDown để hiển thị
+    menu.slideDown(300, function () {
+      menu.addClass('show');
+    });
+  }
+}, function () {
+  // Khi di chuột khỏi nav-item
+  var menu = jQuery(this).find('.dropdown-menu1');
+  // Sử dụng slideUp để ẩn
+  menu.slideUp(300, function () {
+    menu.removeClass('show');
+  });
+});

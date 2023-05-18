@@ -27,3 +27,16 @@
   opacity: 0;
   cursor: pointer;
 }
+.fomarray-img{
+  display: flex;
+  gap: 10px;
+}
+.fomarray-img .div-formarrayRecipe{
+  width: 25%;
+}
+.fomarray-img img{
+  width: 100% !important;
+  height: 200px !important;
+  border-radius: 10px;
+  border: 3px solid #00a8ff;
+}
