@@ -13,6 +13,7 @@ import {ScheduleComponent} from "./component/schedule/schedule.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {Role} from "./model/enum/Roles";
 import {ProfileComponent} from "./component/profile/profile.component";
+import {AdminComponent} from "./component/admin/admin.component";
 
 const routes: Routes = [
   {
@@ -77,6 +78,12 @@ const routes: Routes = [
     path: "profile",
     component:ProfileComponent,
     canActivate:[AuthGuard],
+    data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
+  },
+  {
+    path: "admin",
+    component: AdminComponent,
+    canActivate: [AuthGuard],
     data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
   }
 ];

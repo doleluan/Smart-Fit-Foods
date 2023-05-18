@@ -19,7 +19,9 @@ export class RecipeComponent implements OnInit {
   food_detail:FoodDetail[]=[];
   formGroup : FormGroup;
   fileChoose: File;
+  filesChoose:File;
   videoChoose: File;
+  formArrayImg: FormArray;
   constructor(private foodDetailService: FoodDetailService,private formBuilder: FormBuilder,private fireStorage : AngularFireStorage,
               private recipeService: RecipeService,private route : Router,private toarsrt: ToastrService
               ) { }
@@ -33,11 +35,13 @@ export class RecipeComponent implements OnInit {
   this.formGroup = this.formBuilder.group({
     name:['',[Validators.required]],
     content:['',[Validators.required]],
-    imgs:['',[Validators.required]],
+    // imgs:['',[Validators.required]],
     videos:['',[Validators.required]],
     formArray: this.formBuilder.array([])
-  })
+  });
     this.addFormControl();
+    this.formArrayImg = this.formBuilder.array([])
+    this.addPicture();
   }
   getFoodDetail(){
     this.foodDetailService.getAll().subscribe(
@@ -134,5 +138,23 @@ export class RecipeComponent implements OnInit {
       }
     }
     return null;
+  }
+  addPicture() {
+    if (this.formArrayImg.length < 4) {
+      this.formArrayImg.push(new FormControl("", Validators.required));
+    }
+  }
+
+  uploadImg(event, i: number) {
+    const fileName = event.target.files[0];
+    if (fileName){
+      this.formArrayImg.controls[i].patchValue({"file": fileName});
+    }
+    let idImg = document.getElementById(`label-img${i}`) as HTMLImageElement;
+    let reader = new FileReader();
+    reader.readAsDataURL(fileName)
+    reader.onload = function() {
+      idImg.src = reader.result as string;
+    }
   }
 }

@@ -20,6 +20,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ListRecipeComponent } from './component/list-recipe/list-recipe.component';
 import { ScheduleComponent } from './component/schedule/schedule.component';
 import { ProfileComponent } from './component/profile/profile.component';
+import { AdminComponent } from './component/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ProfileComponent } from './component/profile/profile.component';
     ListRecipeComponent,
     ScheduleComponent,
     ProfileComponent,
+    AdminComponent,
 
   ],
   imports: [

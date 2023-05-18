@@ -10,7 +10,6 @@ export class ProfileComponent implements OnInit {
    provinces:Provinces[]=[];
    districtsChoice:Districts;
    provincesChoice: Provinces;
-  private
   constructor(private elRef: ElementRef,private profileService: ProfileService) { }
 
   ngOnInit(): void {
