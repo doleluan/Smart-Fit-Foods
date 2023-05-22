@@ -20,13 +20,17 @@ public class Recipe {
     private String content;
     private String imgs;
     private String videos;
-    private Integer rate;
+    private String steps;
+    private String advantage;
+    private String defect;
     public Recipe(RecipeDTO recipeDTO){
         this.name = recipeDTO.getName();
         this.id=null;
         this.content=recipeDTO.getContent();
         this.imgs = recipeDTO.getImgs();
         this.videos = recipeDTO.getVideos();
-        this.rate = recipeDTO.getRate();
+        this.advantage = recipeDTO.getAdvantage();
+        this.steps = recipeDTO.getSteps();
+        this.defect = recipeDTO.getDefect();
     }
 }

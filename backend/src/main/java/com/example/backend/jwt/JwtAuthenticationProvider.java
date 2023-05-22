@@ -21,7 +21,6 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     private UserDetailServicesImpl userDetailsService;
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
-
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String userName = String.valueOf(authentication.getPrincipal());

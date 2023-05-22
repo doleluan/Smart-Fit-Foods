@@ -18,7 +18,7 @@ public class UserInfo {
     private String email;
     private String avatar;
     private String address;
-    private Double phone_number;
+    private String phone_number;
     private Gender gender;
     private String name;
 //    private String name
@@ -29,7 +29,6 @@ public class UserInfo {
         this.gender = user.getGender();
         this.avatar = user.getAvatar();
         this.address = user.getAddress();
-        this.email = user.getEmail();
         this.phone_number = user.getPhone_number();
         this.name = user.getName();
     }

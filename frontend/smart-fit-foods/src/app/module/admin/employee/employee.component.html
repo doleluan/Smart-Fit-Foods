@@ -1,0 +1,126 @@
+<div class="container-fluid" id="list-employee" style="padding: 0 80px; margin-top: 83px;width: 1660px">
+  <h3 style="color: #000; margin-bottom: 20px;">Danh sách Employee</h3>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="cards">
+      <div class="body">
+        <div class="table-responsive">
+          <table class="table table-hover js-basic-example dataTable table-custom mb-0 tb-create">
+            <thead class="thead-dark">
+            <tr>
+              <th class="text-center">Id</th>
+              <th class="text-center">Full Name</th>
+              <th class="text-center">Avatar</th>
+              <th class="text-center">Address</th>
+              <th class="text-center">Email</th>
+              <th class="text-center">Phone Number</th>
+              <th class="text-center" style="width: 200px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of this.employees;index as i">
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">
+                {{item.name}}
+              </td>
+              <td class="text-center">
+                <img style="width: 35px; height: 35px;"
+                     src="{{item.avatar}}"
+                     alt="">
+              </td>
+              <td class="text-center">
+                <div style=" word-wrap: break-word; white-space: normal;">
+                          <span style="word-wrap: break-word;">
+                            {{item.address}}
+                          </span>
+                </div>
+              </td>
+              <td class="text-center">
+                <div style=" word-wrap: break-word; white-space: normal;">
+                          <span style="word-wrap: break-word;">
+                            {{item.username.username}}
+                          </span>
+                </div>
+              </td>
+              <td class="text-center">{{item.phone_number}}</td>
+              <td class="text-center align-middle"
+                  style="display:flex; align-items: center; justify-content: center;">
+                <button (click)="removeUser(item)" class="btn btn-sm round btn-outline-danger"
+                        style="display: block; background: rgba(255, 0, 0, 0.54);   color: #fff;  width: 50%; padding: 8px;">Remove</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div style="text-align: center;padding: 30px 0;">
+            <!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link">
+        <i class="fa-solid fa-backward-fast"  (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,0)"></i>
+      </a>
+    </li>
+    <li>
+      <a class="page-link" *ngIf="pageNumber != 0 ? 'disable': ''" (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,pageNumber-1)">
+        <i class="fa-solid fa-backward"></i>
+      </a>
+    </li>
+    <!--      <li class="page-item" *ngFor="let item of [].constructor(totalPages); let i = index">-->
+    <!--        <a class="page-link" [ngClass]="pageNumber == i ? 'current': ''" (click)="getAll(areaSearch,stageSearch,statusSearch,typeSearch,i)">-->
+    <!--          {{i + 1}}-->
+    <!--        </a>-->
+    <!--      </li>-->
+
+    <li class="page-item" *ngFor="let item of [].constructor(totalPages); let i = index">
+
+      <ng-container *ngIf="i < 3 || i >= totalPages - 3">
+        <a class="page-link" [ngClass]="pageNumber == i ? 'current': ''"
+           (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,i)">
+          {{i + 1}}
+        </a>
+      </ng-container>
+      <ng-container *ngIf="3 <= i && i < totalPages - 3 &&(i == pageNumber + 1 || i== pageNumber-1 || i ==pageNumber)">
+        <a class="page-link" [ngClass]="pageNumber == i ? 'current': ''"
+           (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,i)">
+          {{i + 1}}
+        </a>
+      </ng-container>
+      <ng-container *ngIf="(3 < i && i < totalPages - 3 && i != pageNumber && i != pageNumber + 1 && i!=pageNumber-1)">
+        <a class="page-link">
+          ...
+        </a>
+      </ng-container>
+    </li>
+    <li>
+      <a class="page-link"  *ngIf="pageNumber < totalPages - 1 ? 'disable': ''" (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,pageNumber+1)">
+        <i class="fa-solid fa-forward"></i>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link">
+        <i class="fa-solid fa-forward-fast" (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,totalPages-1)"></i> </a>
+    </li>
+    <li class="page-item">
+      <span class="page-link">{{pageNumber + 1}} / {{totalPages}}</span>
+    </li>
+<!--    <li class="page-item">-->
+<!--      <div class="input-group rounded">-->
+<!--        <input id="input-page-choice" type="search" class="form-control rounded" placeholder="chọn trong {{totalPages}} trang" #element-->
+<!--               aria-label="Search" aria-describedby="search-addon"/>-->
+<!--        <span style="cursor: pointer" class="input-group-text border-0" id="search-addon">-->
+<!--           <i class="fas fa-search">-->
+<!--&lt;!&ndash;              (click)="getPageChoice(element.value-1)">&ndash;&gt;-->
+
+<!--           </i>-->
+<!--        </span>-->
+<!--      </div>-->
+<!--    </li>-->
+
+  </ul>
+</div>

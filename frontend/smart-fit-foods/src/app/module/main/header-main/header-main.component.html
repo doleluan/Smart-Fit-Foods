@@ -1,0 +1,50 @@
+<header class="header-new">
+  <nav class="navbar" style="text-align: right;padding-right: 50px;">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="navbar-header col-md-3">
+          <a class="logo">
+            <div style="height: 80px; transform: scaleX(.4);">
+              <img src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.15752-9/337293348_247717284346089_4127857930744177751_n.png?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=4YHkFgvmLfYAX8a1Fst&_nc_ht=scontent.fdad3-5.fna&oh=03_AdTiSDCKzgJLZAGfnRZsHwRA5XBR8oc7mHR_shwEb9J6Bg&oe=646C6973"
+                   alt="Foodhub" />
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class=" col-md-9">
+          <ul class="menu ">
+            <li class="menu-item ">
+              <a routerLink="" aria-current="page">Trang Chủ</a>
+            </li>
+            <li class="menu-item ">
+              <a routerLink="/food">Thực Phẩm</a>
+            </li>
+            <li class="menu-item ">
+              <a routerLink="/schedule">Tạo lịch nấu ăn</a>
+            </li>
+            <li class="menu-item ">
+              <a routerLink="">Sức Khỏe</a>
+            </li>
+            <li class="menu-item ">
+              <a routerLink="">Chế độ dinh dưỡng</a>
+            </li>
+            <li *ngIf="!userCurrent" class="nav-login"><a routerLink="/login">Đăng nhập</a></li>
+            <li *ngIf="userCurrent" (click)="userChoice()" class="avatar avatar-header">
+              <div class="img">
+                <img src="{{userCurrent?.avatar}}"
+                     alt="">
+              </div>
+              <div class="drop-down-menu menu-user" [ngStyle]="{'display': isDropDownMenuOpen ? 'block' : 'none'}">
+                <div routerLink="/blog"><i class="fa-regular fa-newspaper"></i>Bài đăng</div>
+                <div routerLink="/recipes"><i class="fa-solid fa-bowl-food"></i>Thêm công thức</div>
+                <div routerLink="/admin"><i class="fa-solid fa-bowl-food"></i>Admin</div>
+                <div routerLink="/profile"> <i class="fa-regular fa-user" ></i>Profile</div>
+                <div (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i>Logout</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+

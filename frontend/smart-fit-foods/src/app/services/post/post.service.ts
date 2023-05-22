@@ -20,6 +20,6 @@ export class PostService {
     return this.httpClient.post(`${this.URL}/add`,post,{headers:this.headers})
   }
   newPost(){
-    return this.httpClient.get<Post[]>(`${this.URL}/newPost`,{headers:this.headers})
+    return this.httpClient.get<Post[]>(`${this.URL}/newPost`)
   }
 }

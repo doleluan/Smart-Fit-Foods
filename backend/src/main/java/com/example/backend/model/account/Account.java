@@ -27,9 +27,9 @@ public class Account implements UserDetails {
     private String password;
     private Boolean flag;
     private Date dateCreated;
+    private String verifyCode;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "username")
-
     List<AccountRoles> authorities;
     public Account(UserDTO userDTO){
         long milis = System.currentTimeMillis();

@@ -1,0 +1,125 @@
+<div class="modeltheme-overlay"></div>
+<div id="page" class="site">
+  <div class="containers">
+    <!-- Sesstion 1 -->
+    <div class="vc_row vc_row-has-fill"
+         style=" background-image: url('../../../assets/images/foodhub-slider-main-food-v4.jpg')">
+      <div class="wpb_column  vc_col-sm-6"
+           style="    position: relative;top: 50%;left: 50%;transform: translate(-70%, 0%);">
+        <div class="wpb_wrapper">
+          <div class="vc_empty_space  tab-home" style="height: 150px"><span
+            class="vc_empty_space_inner"></span></div>
+          <h1 style="font-size: 40px;color: #ffffff;line-height: 40px;text-align: left;font-family:Cherry Swash;font-weight:700;font-style:normal"
+              class="vc_custom_heading">It is
+            even better than<br />
+            an expensive cookery book</h1>
+          <div class="vc_empty_space" style="height: 10px"><span class="vc_empty_space_inner"></span>
+          </div>
+          <h4 style="font-size: 20px;color: #ffffff;line-height: 20px;text-align: left;font-family:Ubuntu;font-weight:400;font-style:normal"
+              class="vc_custom_heading ">Learn
+            how to make your favorite restaurant’s dishes</h4>
+          <div class="vc_empty_space" style="height: 30px"><span class="vc_empty_space_inner"></span>
+          </div>
+          <div class="mt-car-search wow  mtsearchform-style-v2 ">
+            <div class="foodhub-header-searchform">
+              <form style="width: 65%;">
+                <input type="hidden" name="post_type" value="mt_listing" />
+                <div class="row">
+                  <div class="slider-state-search col-md-7 ">
+                    <input style="color:#fff;" type="search" class="search-field form-control"
+                           placeholder="I want to make..." value="" name="s" id="keyword" />
+                  </div>
+                  <div class="slider-state-select select-categories col-md-4 ">
+                    <select name="mt-listing-category2" class="select-car-type form-control">
+                      <option value=''>Categories</option>
+                      <option value='burgers'>Burgers</option>
+                      <option value='drinks'>Drinks</option>
+                      <option value='pizzas'>Pizzas</option>
+                      <option value='salads'>Salads</option>
+                      <option value='seafood'>Seafood</option>
+                      <option value='sweets'>Sweets</option>
+                    </select>
+                  </div>
+                  <div class="slider-state-submit col-md-1  submit">
+                    <button type="submit" class="form-control btn btn-warning"><i
+                      class="fa fa-search" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </form>
+              <div id="datafetch"></div>
+            </div>
+          </div>
+          <div class="vc_empty_space" style="height: 140px"><span class="vc_empty_space_inner"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Sesstion 1 -->
+    <!-- Sesstion 4 -->
+    <div class="baidangnoibat" style="padding: 80px 230px; position: static;">
+      <div class="row">
+        <!-- Bai dang moi nhat -->
+        <div class="col-md-12">
+          <div class="title">
+            <h3 class="inner-arrow" style="color: #fff;">Bài đăng mới nhất</h3>
+          </div>
+          <div class="penci-wrapper-posts-content">
+            <ul class="penci-wrapper-data penci-grid">
+              <!-- item -->
+              <li *ngFor="let item of this.post" class="grid-style grid-2-style">
+                <article class="item">
+                  <div class="thumbnail">
+                    <a class="penci-image-holder"
+                       [ngStyle]="{ 'background': 'url(' + item.img + ') top center / cover no-repeat'}"
+                       title="{{item.title}}">
+                    </a>
+                  </div>
+                  <div class="grid-header-box">
+                    <h2 class="grid-title"><a href="#">{{item.title}}</a></h2>
+
+                    <div class="grid-post-box-meta">
+                      <span class="author-italic">by <strong>{{item.users.name}}</strong></span>
+                      <span>{{item.time}}</span>
+                    </div>
+                  </div>
+                  <div class="item-content">
+                    {{item.description}}
+                  </div>
+                </article>
+              </li>
+              <!-- item -->
+
+            </ul>
+
+          </div>
+        </div>
+
+        <!-- Bai dang moi nhat -->
+      </div>
+      <!-- ----------------------------------------------- -->
+      <!-- -------------------Cảnh báo---------------------- -->
+      <!-- ----------------------------------------------- -->
+      <div class="card-warning" style="display: none;">
+        <div class="card">
+          <div class="card-header">Warning <i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="card-body">
+            <div class="img-warning">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRFWeyiS5UetFQjAlxy1Y43LuW7yTjuMYt6A&usqp=CAU"
+                   alt="">
+            </div>
+            <div class="des-warning">
+              <h4>Cảnh Báo</h4>
+              <p>Hai thực phẩm này nấu với nhau không tốt.</p>
+              <p>Bạn có muốn tạo menu không?</p>
+              <div style="margin-top: 10px;">
+                <div class="btn btn-cancel">Hủy</div>
+                <div class="btn btn-next">Tiếp tục</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</div>
+</div>

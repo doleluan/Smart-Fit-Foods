@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class RecipeService {
+  listRecipe:Recipe[]=[];
    headers = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -24,4 +25,11 @@ export class RecipeService {
   gerRecipes(){
     return this.httpClient.get<Recipe[]>(`${this.URL}`,{headers:this.headers});
   }
+  setListRecipe(recipe: Recipe[]){
+    this.listRecipe = recipe;
+  }
+  getListRecipe(){
+    return this.listRecipe;
+  }
+
 }

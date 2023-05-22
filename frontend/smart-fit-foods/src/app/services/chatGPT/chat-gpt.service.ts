@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class ChatGPTService {
   URL="https://api.openai.com/v1/completions";
-  keyAPI="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"
+  keyAPI ="";
   message: string;
   changeMessage: EventEmitter<String> = new EventEmitter<String>();
   constructor(private httpClient: HttpClient) { }

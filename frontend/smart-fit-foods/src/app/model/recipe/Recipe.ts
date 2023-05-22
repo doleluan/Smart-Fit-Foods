@@ -1,9 +1,11 @@
 
 export class Recipe {
-  id?:number
-  name?:string
-  content?:string
-  videos?:string
-  imgs?:string
-  rate?:number
+  id?:number;
+  name?:string;
+  content?:string;
+  videos?:string;
+  imgs?:string;
+  steps?:string
+  defect?:string;
+  advantage?:string;
 }

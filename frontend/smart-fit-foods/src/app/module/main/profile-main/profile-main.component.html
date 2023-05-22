@@ -1,0 +1,153 @@
+<div id="primary">
+  <div class="header-title-breadcrumb relative">
+    <div class="header-title-breadcrumb-overlay text-center"
+         style="background-image: url('/assets/images/bg_breadcrumbs.jpg');">
+      <div class="container">
+        <div class="row">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row" style="padding-bottom: 50px;">
+    <div class="col-md-12">
+      <div class="if-avatar">
+        <div class="avatar-wrapper">
+          <label for="avatar-img" >
+            <img id="id-profile-avatar" class="profile-pic" src="{{this.userCurrent?.avatar}}" />
+          </label>
+        </div>
+        <input (change)="changeAvartar($event)" hidden id="avatar-img" type="file" accept="image/*" />
+        <div
+          style="text-align: center;display: inline-block;position: relative;top: -30px;right: -30px;">
+          <h1>{{this.userCurrent?.name}}</h1>
+        </div>
+        <div class="row align-items-center">
+          <div class="col">
+            <!-- Nav -->
+            <ul class="nav nav-tabs nav-overflow header-tabs">
+              <li class="nav-item">
+                <a href="" class="nav-link dropdown-toggle active tk" value="taikhoan"
+                   data-toggle="dropdown">Tài khoản</a>
+                <div class="dropdown-menu1">
+                  <a href="" class="dropdown-item tk">Quản lý tài khoản</a>
+                  <a href="" class="dropdown-item reset-pass">Đổi mật
+                    khẩu</a>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <!-- Tài khoản -->
+      <div class="row" id="taikhoan">
+        <div class="col-md-12">
+          <form [formGroup]="formGroup" method="post">
+            <div class="row">
+              <div class="col-md-9"
+                   style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 10px; padding: 20px;">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="fullname">Fullname:</label><br>
+                    <input  formControlName="name" class="form-control" type="text" id="fullname"/>
+                    <span *ngIf="formGroup.get('name').hasError('required') && formGroup.get('name').touched" style="color: red">Họ tên không đạt yêu cầu</span>
+
+                  </div>
+                  <div class="form-group">
+                    <label >Address:</label><br>
+                    <p>{{this.userCurrent?.address}}</p>
+                    <div style="display: flex;" >
+                      <select  (change)="handleProvinceChangeProvinces($event)" class="select form-control">
+                        <option [ngValue]="item.name" *ngFor="let item of this.provinces">{{item.name}}</option>
+                      </select>
+                      <select class="select form-control" (change)="handleProvinceDistricts($event)" [disabled]="!this.isChooseProvinces">
+                        <option *ngIf="!this.provincesChoice">Hãy Chọn Tỉnh/Thành</option>
+                        <option [ngValue]="item.name" *ngFor="let item of this.provincesChoice?.districts">{{item.name}}</option>
+                      </select>
+                      <select (change)="handleWards($event)"  class="test form-control" [disabled]="!this.isChooseDistrict">
+                        <option *ngIf="!this?.districtsChoice"> Hãy Chọn Quận/Huyện</option>
+                        <option  [ngValue]="item.name" *ngFor="let item of this?.districtsChoice?.wards">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!--                    <div class="form-group">-->
+                  <!--                      <label for="birthday">Birthday:</label><br>-->
+                  <!--                      <input class="form-control" type="date" id="birthday"-->
+                  <!--                             name="birthday" />-->
+                  <!--                    </div>-->
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="gender">Gender:</label><br>
+                    <select formControlName="gender" class="form-control" style="border-radius: 10px;" id="gender">
+                      <option selected [ngValue]="this.userCurrent.gender" *ngIf="userCurrent.gender">{{userCurrent.gender.name}}</option>
+                      <option  [hidden]="this.userCurrent?.gender?.id==item.id"  [ngValue]="item" value="male" *ngFor="let item of this.genders" >{{item.name}}</option>
+
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone:</label><br>
+                    <input formControlName="phone_number" class="form-control" type="text" id="phone" name="phone" />
+                    <span></span>
+                    <span>
+                        <span *ngIf="(formGroup.get('phone_number').hasError('pattern') || formGroup.get('phone_number').hasError('required')) && formGroup.get('phone_number').touched" style="color: red">Số điện thoại không đạt yêu cầu</span>
+                      </span>
+                    <span>
+                      </span>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div style="text-align: left; padding-top: 10px; ">
+                    <input (click)="editProfile()" [disabled]="this.formGroup.invalid" type="submit" value="Save"
+                           style="border-radius: 10px; padding: 10px 15px; border: none; outline: none; background-color: #2c7be5; color: #fff;" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Mật khẩu -->
+      <div class="row" id="matkhau" style="display: none;">
+        <div class="col-md-12">
+          <form [formGroup]="formChangePass">
+            <div class="row">
+              <div class="col-md-9"
+                   style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 10px; padding: 20px;">
+                <div class="form-group" >
+                  <label for="current-pass">Password Current</label>
+                  <input (input)="resetPasswordMessage()" formControlName="password" type="password" id="current-pass" name="current-pass"
+                         class="form-control">
+                  <span>&nbsp;</span>
+                  <span id="errorMessage" style="color: red"></span>
+                  <span *ngIf="formChangePass.get('password').hasError('minlength') && formChangePass.get('password').touched" style="color: red">Mật khẩu không đúng yêu cầu</span>
+                </div>
+                <div class="form-group">
+                  <label for="new-pass">Password New</label>
+                  <input formControlName="newPassword" type="password" id="new-pass" name="new-pass"
+                         class="form-control">
+                  <span>&nbsp;</span>
+                  <span *ngIf="formChangePass.get('newPassword').hasError('minlength') && formChangePass.get('newPassword').touched" style="color: red">Mật khẩu mới không đúng yêu cầu</span>
+                </div>
+                <div class="form-group">
+                  <label for="verify">Confirm New Password</label>
+                  <input formControlName="confirmPassword" type="password" id="verify" name="verify" class="form-control">
+                </div>
+                <div>
+                  <span>&nbsp;</span>
+                  <span *ngIf="formChangePass.hasError('mismatch')" style="color: red">Mật khẩu xác nhận không trùng khớp</span>
+                </div>
+                <div class="div-btn-submit-changePass">
+                  <button (click)="doChangePass()" class="btn btn-submit btn-submit-changePass" style="background-color: #0d66c2;border-radius: 8px;color: white" [disabled]="this.formChangePass.invalid">Reset</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

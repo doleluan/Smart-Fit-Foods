@@ -1,0 +1,90 @@
+<div class="modeltheme-overlay"></div>
+<div id="page" class="site">
+  <!-- Container -->
+  <div id="primary">
+    <div class="header-title-breadcrumb relative">
+      <div class="header-title-breadcrumb-overlay text-center"
+           style="background-image: url('/assets/images/bg_breadcrumbs.jpg');">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+              <h1>Danh sách các món ăn </h1>
+              <ol class="breadcrumb text-center">
+                <li><a href="/index.html" style="font-size: 14px;">Trang chủ |</a></li>
+                <li class="active" style="font-size: 14px;">Đồ ăn chay</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row" style="margin-top: 30px;">
+        <div class="col-md-4">
+          <h3 style="font-weight: bold;">Danh sách các món</h3>
+          <div>
+            <div>
+              <!-- item -->
+              <div class="list-mon" (click)="getRecipe(item)" class="list-mon" *ngFor="let item of this.recipes">
+                <p
+                  style="font-size: 14px;line-height: 1.5;text-align: justify; margin-bottom: 5px;">
+                  {{item.name}}
+                <div style="width: 100%;">
+                  <img style="border-radius: 10px; max-height: 520px; width: 100%;"
+                       src="{{item.imgs}}"
+                       alt="">
+                </div>
+              </div >
+              <!-- item -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <!-- Nguyên liệu -->
+          <div>
+            <h3 style="text-align: center;font-weight: bold;">{{this.recipe?.name}}</h3>
+            <div class="nguyenlieu" style="margin-top: 20px;">
+              <h4>Nguyên liệu làm {{this.recipe?.name}}</h4>
+              <div>
+                <div style="margin-top: 10px;">
+                  <p>{{this.recipe?.content}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Cac buoc lam -->
+          <h4>Các bước làm:</h4>
+          <div>
+            <!-- Step -->
+            <div class="des" *ngFor="let item of [].constructor(this.recipe?.steps.split('-').length);index as i">
+              <p  style="margin-top: 25px;">
+                {{this.recipe?.steps.split('-')[i]}}
+              </p>
+              <div class="images" style="margin-top: 20px;">
+                <img style="border-radius: 10px; max-height: 520px; width: 100%;"
+                     src="{{this.recipe?.imgs.split('capstone2Sff')[i]}}"
+                     alt="">
+              </div>
+            </div>
+          </div>
+          <!-- Video -->
+          <div>
+            <video id="videoRecipes" width="500" height="500" controls>
+                          <source [src]="this.recipe?.videos" type="video/mp4">
+                          Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <div style="margin-top: 20px;">
+            <div class="uudiem">
+              <p>{{this.recipe?.advantage}}</p>
+            </div>
+            <div class="nhuocdiem">
+              <p>{{this.recipe?.defect}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Container -->
+    </div>
+  </div>
+</div>

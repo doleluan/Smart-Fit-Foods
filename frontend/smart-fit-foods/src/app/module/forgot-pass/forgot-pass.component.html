@@ -1,0 +1,24 @@
+<body>
+<div class="header" style="width: 1920px; height: 930px;">
+  <div class="container">
+    <div class="form-container login-container">
+      <form [formGroup]="formForgotPass">
+        <h1 style="color: #4d80e0;">Quên mật khẩu</h1>
+        <div style="width: 100%">
+          <div>
+            <input (input)="changingValueUsername()" formControlName="username" type="text" placeholder="Tên tài khoản" style="text-align: center;">
+            <span>&nbsp;</span>
+            <span *ngIf="formForgotPass.controls.username.hasError('pattern')&& formForgotPass.controls.username.touched" style="color: red">Email không chính xác</span>
+          </div>
+        </div>
+        <button (click)="getNewPass()" [disabled]="!this.formForgotPass.valid" class="btn">Gửi</button>
+        <div>
+          <span>&nbsp;</span>
+          <span style="color: red"><strong>{{this?.errorMessage}}</strong></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+

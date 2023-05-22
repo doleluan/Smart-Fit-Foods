@@ -384,4 +384,5 @@ jQuery('.nav-item').hover(function () {
   menu.slideUp(300, function () {
     menu.removeClass('show');
   });
+
 });

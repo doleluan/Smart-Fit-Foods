@@ -16,5 +16,7 @@ public class RecipeDTO {
     private String content;
     private String videos;
     private String imgs;
-    private Integer rate;
+    private String steps;
+    private String advantage;
+    private String defect;
 }
