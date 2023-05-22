@@ -6,8 +6,7 @@ export class UserDTO {
   username?:string;
   avatar?:string;
   name?:string;
-  email?:string;
-  phone_number?:number;
+  phone_number?:string;
   address?:string;
   gender?:Gender;
   roles?:Roles[];

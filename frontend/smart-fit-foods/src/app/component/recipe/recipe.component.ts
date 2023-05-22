@@ -25,7 +25,6 @@ export class RecipeComponent implements OnInit {
   constructor(private foodDetailService: FoodDetailService,private formBuilder: FormBuilder,private fireStorage : AngularFireStorage,
               private recipeService: RecipeService,private route : Router,private toarsrt: ToastrService
               ) { }
-
   ngOnInit(): void {
     this.getFoodDetail();
     this.buildForm();
@@ -35,8 +34,10 @@ export class RecipeComponent implements OnInit {
   this.formGroup = this.formBuilder.group({
     name:['',[Validators.required]],
     content:['',[Validators.required]],
-    // imgs:['',[Validators.required]],
     videos:['',[Validators.required]],
+    advantage:['',[Validators.required]],
+    defect:['',[Validators.required]],
+    steps:['',[Validators.required]],
     formArray: this.formBuilder.array([])
   });
     this.addFormControl();
@@ -63,52 +64,40 @@ export class RecipeComponent implements OnInit {
     return this.formGroup.get('formArray') as FormArray;
   }
   async submitFood() {
-    const imgsPath = `recipes/${Date.now()}${this.fileChoose.name}`;
-    const videosPath = `recipes/${Date.now()}${this.videoChoose.name}`;
-    // Tạo reference để lưu trữ ảnh trên Firebase Storage
-    const imgsRef = this.fireStorage.ref(imgsPath)
-    const videosRef = this.fireStorage.ref(videosPath);
-    try {
-      // Tải lên ảnh lên Firebase Storage và lấy downloadURL để hiển thị trên giao diện
-      const imgUploadTask = this.fireStorage.upload(imgsPath, this.fileChoose);
-      const imgSnapshot = await imgUploadTask.snapshotChanges().toPromise();
-      const imgUrl = await imgsRef.getDownloadURL().toPromise();
-      // this.fireStorage.upload(imgsPath,this.fileChoose).snapshotChanges().pipe(
-      //   finalize(()=>{
-      //     imgsRef.getDownloadURL().subscribe(url=>{
-      //       this.formGroup.value.imgs = url;
-      //     })
-      //   })
-      // ).subscribe();
-      // this.fireStorage.upload(videosPath,this.videoChoose).snapshotChanges().pipe(
-      //   finalize(()=>{
-      //     videosRef.getDownloadURL().subscribe(url=>{
-      //       this.formGroup.value.videos = url;
-      //     })
-      //   })
-      // ).subscribe();
-      const videoUploadTask = this.fireStorage.upload(videosPath, this.videoChoose);
-      const videoSnapshot = await videoUploadTask.snapshotChanges().toPromise();
-      const videoUrl = await videosRef.getDownloadURL().toPromise();
-      this.formGroup.value.imgs = imgUrl;
-      this.formGroup.value.videos = videoUrl;
-      let recipeDetailDTO = this.convertRecipeDTO(this.formGroup.value);
-      this.recipeService.addMenu(recipeDetailDTO).subscribe(data=>{
-            this.route.navigate(['/food']);
-            this.toarsrt.success(`Thêm mới công thức ${recipeDetailDTO.name}`,"Thành công")
-      })
-    }catch (e) {
-      console.log(e)
-    }
+    // const imgsPath = `recipes/${Date.now()}${this.fileChoose.name}`;
+    // const videosPath = `recipes/${Date.now()}${this.videoChoose.name}`;
+    // // Tạo reference để lưu trữ ảnh trên Firebase Storage
+    // const imgsRef = this.fireStorage.ref(imgsPath)
+    // const videosRef = this.fireStorage.ref(videosPath);
+    // try {
+    //   // Tải lên ảnh lên Firebase Storage và lấy downloadURL để hiển thị trên giao diện
+    //   const imgUploadTask = this.fireStorage.upload(imgsPath, this.fileChoose);
+    //   const imgSnapshot = await imgUploadTask.snapshotChanges().toPromise();
+    //   const imgUrl = await imgsRef.getDownloadURL().toPromise();
+    //   const videoUploadTask = this.fireStorage.upload(videosPath, this.videoChoose);
+    //   const videoSnapshot = await videoUploadTask.snapshotChanges().toPromise();
+    //   const videoUrl = await videosRef.getDownloadURL().toPromise();
+    //   this.formGroup.value.imgs = imgUrl;
+    //   this.formGroup.value.videos = videoUrl;
+    //   let recipeDetailDTO = this.convertRecipeDTO(this.formGroup.value);
+    //   this.recipeService.addMenu(recipeDetailDTO).subscribe(data=>{
+    //         this.route.navigate(['/food']);
+    //         this.toarsrt.success(`Thêm mới công thức ${recipeDetailDTO.name}`,"Thành công")
+    //   })
+    // }catch (e) {
+    //   console.log(e)
+    // }
+    console.log(this.formGroup.value);
+    console.log(this.formArray.controls[0].value)
   }
   convertRecipeDTO(value){
     const recipeDTO = new RecipeDTO();
     recipeDTO.name = value.name;
     recipeDTO.content = value.content;
-    recipeDTO.rate = 5;
-    recipeDTO.videos = this.formGroup.value.videos;
-    recipeDTO.imgs= this.formGroup.value.imgs;
     recipeDTO.food_detail = this.formGroup.value.formArray;
+    recipeDTO.advantage = this.formGroup.value.advantage;
+    recipeDTO.defect = this.formGroup.value.defect;
+    recipeDTO.steps = this.formGroup.value.steps;
     return recipeDTO;
   }
 
@@ -149,30 +138,42 @@ export class RecipeComponent implements OnInit {
     const fileName = event.target.files[0];
     if (fileName){
       this.formArrayImg.controls[i].patchValue({"file": fileName});
-    }
-    let idImg = document.getElementById(`label-img${i}`) as HTMLImageElement;
-    let reader = new FileReader();
-    reader.readAsDataURL(fileName)
-    reader.onload = function() {
-      idImg.src = reader.result as string;
+      let idImg = document.getElementById(`label-img${i}`) as HTMLImageElement;
+      let reader = new FileReader();
+      reader.readAsDataURL(fileName)
+      reader.onload = function() {
+        idImg.src = reader.result as string;
+      }
     }
   }
-
   async addRecipe() {
     let src = "";
-    document.getElementById("pop-up-container").style.display="block";
     for (let [index,file] of this.formArrayImg.controls.entries()) {
       if (file.value!=null){
         if (file.value.file.type != 'image/png' && file.value.file.type != 'image/jpeg') {
         } else {
-          let filePath = `recipe-imgs${new Date().toISOString()}${file.value.file.name}`
+          let filePath = `recipe-imgs/${new Date().toISOString()}${file.value.file.name}`
           let fileRef = this.fireStorage.ref(filePath);
           await this.fireStorage.upload(filePath, file.value.file).snapshotChanges().toPromise();
           const url = await fileRef.getDownloadURL().toPromise();
-          src+=`${url}a0222i1`;
+          src+=`${url}capstone2Sff`;
         }
       }
       continue;
     }
+    const videosPath = `recipeid/${Date.now()}${this.videoChoose.name}`;
+    const videosRef = this.fireStorage.ref(videosPath);
+    const videoUploadTask = this.fireStorage.upload(videosPath, this.videoChoose);
+    const videoSnapshot = await videoUploadTask.snapshotChanges().toPromise();
+    const videoUrl = await videosRef.getDownloadURL().toPromise();
+    let recipeDetailDTO = this.convertRecipeDTO(this.formGroup.value);
+    recipeDetailDTO.imgs = src.replace(/capstone2Sff$/, '');
+    recipeDetailDTO.videos = videoUrl;
+    this.recipeService.addMenu(recipeDetailDTO).subscribe(data=>{
+              this.toarsrt.success(`Thêm mới công thức ${recipeDetailDTO.name}`,"Thành công");
+              this.formGroup.reset();
+              this.formArrayImg.reset();
+              this.formArray.reset();
+        })
   }
 }

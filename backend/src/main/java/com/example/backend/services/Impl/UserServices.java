@@ -1,5 +1,6 @@
 package com.example.backend.services.Impl;
 
+import com.example.backend.dto.ChangeAccountDTO;
 import com.example.backend.dto.UserDTO;
 import com.example.backend.dto.UserEditDTO;
 import com.example.backend.dto.UserInfo;
@@ -7,13 +8,17 @@ import com.example.backend.model.account.Account;
 import com.example.backend.model.account.AccountRoles;
 import com.example.backend.model.account.KeyAccountRole;
 import com.example.backend.model.account.Roles;
+import com.example.backend.model.person.Gender;
 import com.example.backend.model.person.Users;
 import com.example.backend.repository.IUserRepository;
 import com.example.backend.services.IAccountRolesServices;
 import com.example.backend.services.IAccountServices;
 import com.example.backend.services.IUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +43,6 @@ public class UserServices implements IUserServices {
 
 //        add new accout
         Account account = new Account(userDTO);
-        System.out.println(userDTO.getUsername());
         account.setPassword(this.passwordEncoder.encode(userDTO.getPassword()));
 ////        add new role_user
         Account account1 = this.iAccountServices.saveAccount(account);
@@ -46,8 +50,13 @@ public class UserServices implements IUserServices {
         AccountRoles accountRoles = new AccountRoles(keyAccountRole);
         this.iAccountRolesServices.saveAccountRoles(accountRoles);
         //        add new user
-        Users users = new Users(userDTO);
+        Users users = new Users();
         users.setUsername(account1);
+        users.setAvatar("https://firebasestorage.googleapis.com/v0/b/capstone2-e8f43.appspot.com/o/avatarUser%2Fusers.png?alt=media&token=a4162b9d-804d-4295-9cdd-52ae8878f430");
+        users.setGender(new Gender(1,""));
+        userDTO.setUsername("");
+        users.setAddress("");
+        users.setPhone_number("");
         return iUserRepository.save(users);
     }
 
@@ -56,11 +65,6 @@ public class UserServices implements IUserServices {
         return iUserRepository.findByUsername(userName).orElse(null);
 
     }
-    @Override
-    public List<Users> findAllUsers() {
-        return iUserRepository.findAll();
-    }
-
     @Override
     public UserInfo editUser(UserEditDTO userEditDTO) {
 
@@ -71,5 +75,11 @@ public class UserServices implements IUserServices {
         Collection<? extends GrantedAuthority> authorities = this.userDetailServices.loadUserByUsername(userEditDTO.getUsername()).getAuthorities();
         userInfo.setRoles(new ArrayList(authorities));
         return userInfo;
+    }
+
+    @Override
+    public Page<Users> findAllUsers(String username, String address, String phone_number, String name, Pageable pageable,Integer roles) {
+        System.out.println(username+address+phone_number+name);
+        return this.iUserRepository.findAllUser("","","","",pageable,roles);
     }
 }

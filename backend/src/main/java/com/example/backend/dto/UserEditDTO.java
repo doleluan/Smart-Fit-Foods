@@ -10,10 +10,9 @@ import lombok.*;
 public class UserEditDTO {
     private Integer id;
     private String username;
-    private String email;
     private String avatar;
     private String address;
-    private Double phone_number;
+    private String phone_number;
     private Gender gender;
     private String name;
 }

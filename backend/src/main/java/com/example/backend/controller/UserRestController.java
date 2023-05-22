@@ -1,12 +1,12 @@
 package com.example.backend.controller;
 
-import com.example.backend.dto.UserDTO;
-import com.example.backend.dto.UserEditDTO;
-import com.example.backend.dto.UserInfo;
+import com.example.backend.dto.*;
 import com.example.backend.model.account.Roles;
 import com.example.backend.model.person.Users;
+import com.example.backend.services.IAccountServices;
 import com.example.backend.services.Impl.UserDetailServicesImpl;
 import com.example.backend.services.Impl.UserServices;
+import com.example.backend.services.MailServices;
 import com.example.backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.*;
@@ -31,7 +32,11 @@ public class UserRestController {
     @Autowired
     private UserServices userService;
     @Autowired
+    private IAccountServices iAccountServices;
+    @Autowired
     private UserDetailServicesImpl userDetailServices;
+    @Autowired
+    private MailServices mailServices;
     @PostMapping("/registration")
     public ResponseEntity<?> register(@RequestBody UserDTO userDTO) {
         if(userService.findByUserName(userDTO.getUsername()) != null){
@@ -66,5 +71,28 @@ public class UserRestController {
     public ResponseEntity<UserInfo> editUser(@RequestBody UserEditDTO userEditDTO){
       UserInfo userInfo =  this.userService.editUser(userEditDTO);
         return new ResponseEntity<>(userInfo,HttpStatus.OK);
+    }
+    @PutMapping("/changePass")
+    public ResponseEntity<?> changePass(@RequestBody ChangeAccountDTO changeAccountDTO){
+      boolean isChanged = this.iAccountServices.changePass(changeAccountDTO);
+      if (isChanged){
+          return new ResponseEntity<>(HttpStatus.OK);
+      }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    @PostMapping("/forgotPass")
+    public ResponseEntity<?> forgotPass(@RequestBody AccountDTO accountDTO) throws MessagingException {
+       boolean emailIsExist= this.iAccountServices.userNameisExist(accountDTO);
+       if (emailIsExist){
+           this.mailServices.sendMail(accountDTO);
+           return  new ResponseEntity<>(HttpStatus.OK);
+       }
+        return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    @PostMapping("/getNewPass")
+    public ResponseEntity<?>getNewPass(@RequestBody AccountDTO accountDTO){
+       boolean isEqualCode = this.iAccountServices.getNewPass(accountDTO);
+       if (isEqualCode) return new ResponseEntity<>(HttpStatus.OK);
+       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

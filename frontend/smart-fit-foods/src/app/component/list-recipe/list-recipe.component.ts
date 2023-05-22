@@ -13,6 +13,7 @@ export class ListRecipeComponent implements OnInit {
   recipe: Recipe;
   ngOnInit(): void {
     this.recipes = history.state.data;
+    console.log(this.recipes);
     this.recipe = history.state.data[0];
   }
   getRecipe(item: Recipe) {

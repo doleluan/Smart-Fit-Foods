@@ -18,16 +18,6 @@
         <span>&nbsp;</span>
         <span *ngIf="formGroup.controls.name.hasError('required') && formGroup.controls.name.touched" style="color: red">Tên công thức không được để trống</span>
       </div>
-<!--      <div class="form-group hinhanh" style="text-align: left;">-->
-<!--        <label><b>Hình ảnh</b></label> <br>-->
-<!--        <img id="recipes-imgs-firebase" class="profile-pic" src="../../../assets/images/logo.png"/>-->
-<!--        <input  formControlName="imgs" class="file-upload" type="file" accept="image/*" (change)="addFile($event)" />-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <span>&nbsp;</span>-->
-<!--        <span *ngIf="formGroup.controls.imgs.hasError('required') && formGroup.controls.imgs.touched" style="color: red">Hình ảnh không được để trống</span>-->
-<!--      </div>-->
-
             <div  style="text-align: left;">
               <form class="fomarray-img" [formArrayName]="formArrayImg">
                 <div class="div-formarrayRecipe" *ngFor="let img of this.formArrayImg.controls;index as i" [formGroupName]="i">
@@ -42,7 +32,6 @@
                 </div>
               </form>
             </div>
-
       <div>
         <button [hidden]="this.formArrayImg.length==4 || this.formArrayImg.invalid" class="btn btn-primary" style="margin-top: 20px"  (click)="addPicture()" >Thêm ảnh</button>
       </div>
@@ -91,6 +80,40 @@
         <td style="border: none">
       </td>
       </tr>
+      <div>
+        <tr>
+          <div class=" mota" style="text-align: left;margin-top: 20px">
+            <label><b>Ưu điểm: </b></label> <br>
+            <textarea class="form-control" cols="50" formControlName="advantage"
+                      rows="4"></textarea>
+            <div>
+              <span>&nbsp;</span>
+              <span *ngIf="formGroup.controls.advantage.hasError('required') && formGroup.controls.advantage.touched" style="color: red">Ưu điểm không được để trống</span>
+            </div>
+             </div>
+          <div class=" mota" style="text-align: left;margin-top: 20px">
+            <label><b>Nhược điểm: </b></label> <br>
+            <textarea class="form-control" cols="50" formControlName="defect"
+                      rows="4"></textarea>
+            <div>
+              <span>&nbsp;</span>
+              <span *ngIf="formGroup.controls.defect.hasError('required') && formGroup.controls.defect.touched" style="color: red">Nhược điểm không được để trống</span>
+            </div>
+          </div>
+        </tr>
+        <tr>
+          <div class=" mota" style="text-align: left;margin-top: 20px">
+            <label><b>Các bước thực hiện: </b></label> <br>
+            <textarea class="form-control" cols="50" formControlName="steps"
+                      rows="4">
+               <div>
+              <span>&nbsp;</span>
+              <span *ngIf="formGroup.controls.steps.hasError('required') && formGroup.controls.steps.touched" style="color: red">Các bước thực hiện không được để trống</span>
+            </div>
+            </textarea>
+          </div>
+        </tr>
+      </div>
       <div class="form-group video" style="text-align: left;">
         <label><b>Video</b></label> <br>
         <div>
