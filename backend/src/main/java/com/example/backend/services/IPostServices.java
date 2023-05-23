@@ -10,4 +10,5 @@ public interface IPostServices {
     List<Post> findAll();
     Post savePost(PostDTO postDTO);
     List<Post> getNewPost();
+    Post findById(Integer id);
 }

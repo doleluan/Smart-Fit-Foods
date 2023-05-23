@@ -11,6 +11,8 @@ import com.example.backend.services.IFoodDetailServices;
 import com.example.backend.services.IRecipeDetailServices;
 import com.example.backend.services.IRecipeServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
@@ -39,7 +41,7 @@ public class RecipeServices implements IRecipeServices {
     public List<Recipe> findMenu(RecipeIDetailDTO[] recipeIDetailDTOS) {
 //         Sử dụng EntityManager để tạo truy vấn
             StringBuilder subquery = new StringBuilder();
-            StringBuilder mainquery = new StringBuilder("select distinct b.advantage,b.defect, b.steps, b.id,b.content,b.imgs,b.name,b.rate,b.videos from recipe_detail a join recipe b on a.recipe_id = b.id in (");
+            StringBuilder mainquery = new StringBuilder("select distinct b.advantage,b.defect, b.steps, b.id,b.content,b.imgs,b.name,b.videos from recipe_detail a join recipe b on a.recipe_id = b.id in (");
             subquery.append("SELECT recipe_id FROM capstone2.recipe_detail where food_detail_id=");
         for (int i=0;i<recipeIDetailDTOS.length;i++){
             if (i==0){
@@ -72,5 +74,15 @@ public class RecipeServices implements IRecipeServices {
     @Override
     public Recipe findById(Integer id) {
         return this.iRecipeRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Page<Recipe> findAll(String name, Pageable pageable) {
+        return this.iRecipeRepository.findAllRecipes(name,pageable);
+    }
+
+    @Override
+    public List<Recipe> searchRecipe(String name) {
+        return this.iRecipeRepository.searchRecipe(name);
     }
 }

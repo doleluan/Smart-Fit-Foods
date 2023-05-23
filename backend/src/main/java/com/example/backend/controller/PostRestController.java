@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.dto.PostDTO;
 import com.example.backend.model.post.Post;
+import com.example.backend.model.recipe.Recipe;
 import com.example.backend.services.IPostServices;
 import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,13 @@ public class PostRestController {
     @GetMapping("/newPost")
     private ResponseEntity<List<Post>> getNewPost(){
     return new ResponseEntity<>(this.iPostServices.getNewPost(),HttpStatus.OK);
+    }
+    @GetMapping("/getPost/{id}")
+    private ResponseEntity<Post> findById(@PathVariable Integer id){
+        Post post = this.iPostServices.findById(id);
+        if (post==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(post,HttpStatus.OK);
     }
 }

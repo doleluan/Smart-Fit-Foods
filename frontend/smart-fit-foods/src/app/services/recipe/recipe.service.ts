@@ -31,5 +31,8 @@ export class RecipeService {
   getListRecipe(){
     return this.listRecipe;
   }
+  getRecipeSearch(name:string){
+    return this.httpClient.get<Recipe[]>(`${this.URL}/searchRecipe?name=${name}`,{headers:this.headers});
+  }
 
 }

@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.dto.UserEditDTO;
 import com.example.backend.model.person.Users;
 import com.example.backend.services.IAccountServices;
+import com.example.backend.services.IRecipeServices;
 import com.example.backend.services.IUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,8 @@ public class AdminRestController {
     private IUserServices iUserServices;
     @Autowired
     private IAccountServices iAccountServices;
+    @Autowired
+    private IRecipeServices iRecipeServices;
     private static final int MAX_DISPLAY = 5;
     @GetMapping("/users")
     public ResponseEntity<Page<Users>> findAllUser(@RequestParam(name="username",defaultValue = "") String username,
@@ -45,5 +48,9 @@ public class AdminRestController {
     public ResponseEntity<?> deleteEmployee(@RequestParam(name = "username") String username){
         this.iAccountServices.deleteUser(username);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/listRecipe")
+    public ResponseEntity<?> listRecipe(@RequestParam(name = "name") String name, @PageableDefault(size = MAX_DISPLAY) Pageable pageable){
+            return new ResponseEntity<>(this.iRecipeServices.findAll("",pageable),HttpStatus.OK);
     }
 }
