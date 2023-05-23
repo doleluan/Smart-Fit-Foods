@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {BlogComponent} from "./component/blog/blog.component";
 import {RecipeComponent} from "./component/recipe/recipe.component";
-import {ListRecipeComponent} from "./component/list-recipe/list-recipe.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {Role} from "./model/enum/Roles";
 import {LoginModuleComponent} from "./module/login/login-module.component";
@@ -19,6 +18,10 @@ import {UserComponent} from "./module/admin/user/user.component";
 import {DashBoardComponent} from "./module/admin/dash-board/dash-board.component";
 import {NewPassComponent} from "./module/new-pass/new-pass.component";
 import {ListRecipeMainComponent} from "./module/main/list-recipe-main/list-recipe-main.component";
+import {ViewDetailPostComponent} from "./module/main/view-detail-post/view-detail-post.component";
+import {AdminRecipeComponent} from "./module/admin/admin-recipe/admin-recipe.component";
+import {HealthyMainComponent} from "./module/main/healthy-main/healthy-main.component";
+import {LifeStyleComponent} from "./module/main/life-style/life-style.component";
 
 
 const routes: Routes = [
@@ -44,6 +47,18 @@ const routes: Routes = [
       {
         path: "listRecipe",
         component: ListRecipeMainComponent
+      },
+      {
+        path: "viewPost",
+        component: ViewDetailPostComponent
+      },
+      {
+        path: "healthy",
+        component:HealthyMainComponent
+      },
+      {
+        path: "lifestyle",
+        component: LifeStyleComponent
       }
     ]
   },
@@ -75,12 +90,6 @@ const routes: Routes = [
     data:{roles:[Role.ADMIN,Role.EMPLOYEE]}
   },
   {
-    path: "list",
-    component: ListRecipeComponent,
-    canActivate:[AuthGuard],
-    data:{roles:[Role.USER,Role.ADMIN,Role.EMPLOYEE]}
-  },
-  {
     path: "admin",
     canActivate:[AuthGuard],
     data:{roles:[Role.ADMIN,Role.EMPLOYEE]},
@@ -102,11 +111,13 @@ const routes: Routes = [
         path: "",
         component: DashBoardComponent
       },
+      {
+        path: "recipe",
+        component: AdminRecipeComponent
+      }
     ]
   },
-
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

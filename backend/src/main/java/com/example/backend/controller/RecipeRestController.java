@@ -35,4 +35,16 @@ public class RecipeRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/searchRecipe")
+    private ResponseEntity<List<Recipe>> searchRecipe(@RequestParam(name = "name") String name){
+        return new ResponseEntity<>(this.iRecipeServices.searchRecipe(name),HttpStatus.OK);
+    }
+    @GetMapping("/getRecipe/{id}")
+    private ResponseEntity<Recipe> findById(@PathVariable Integer id){
+        Recipe recipe = this.iRecipeServices.findById(id);
+        if (recipe==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(recipe,HttpStatus.OK);
+    }
 }

@@ -19,14 +19,24 @@
               <a routerLink="/food">Thực Phẩm</a>
             </li>
             <li class="menu-item ">
-              <a routerLink="/schedule">Tạo lịch nấu ăn</a>
+              <a routerLink="/healthy">Chế độ dinh dưỡng</a>
+              <div class="cf-mega-menu sub-menu">
+              <ul>
+                <li style="cursor: pointer" class="sub-menu-item">Tháp Dinh Dưỡng</li><br>
+                <li routerLink="/schedule" style="cursor: pointer"  class="sub-menu-item">Chế Độ Sức Khỏe</li>
+              </ul>
+            </div>
             </li>
             <li class="menu-item ">
               <a routerLink="">Sức Khỏe</a>
+              <div class="cf-mega-menu sub-menu">
+                <ul>
+                  <li style="cursor: pointer" class="sub-menu-item">Hướng dẫn sức khỏe</li><br>
+                  <li routerLink="/lifestyle" style="cursor: pointer"  class="sub-menu-item">Thể dục và lối sống</li>
+                </ul>
+              </div>
             </li>
-            <li class="menu-item ">
-              <a routerLink="">Chế độ dinh dưỡng</a>
-            </li>
+
             <li *ngIf="!userCurrent" class="nav-login"><a routerLink="/login">Đăng nhập</a></li>
             <li *ngIf="userCurrent" (click)="userChoice()" class="avatar avatar-header">
               <div class="img">

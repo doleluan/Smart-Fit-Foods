@@ -2,6 +2,8 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {Post} from "../../../model/post/Post";
 import {Router} from "@angular/router";
 import {PostService} from "../../../services/post/post.service";
+import {RecipeService} from "../../../services/recipe/recipe.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-home-main',
@@ -21,7 +23,8 @@ export class HomeMainComponent implements OnInit {
     document.getElementsByTagName('head')[0].appendChild(node);
   }
 
-  constructor(private router: Router,private elRef: ElementRef,private postService: PostService) { }
+  constructor(private router: Router,private elRef: ElementRef,private postService: PostService,private recipeService: RecipeService,
+              private toastrService: ToastrService) { }
   ngOnInit(): void {
     // this.loadAPI = new Promise(resolve => {
     //   this.loadScript();
@@ -32,32 +35,20 @@ export class HomeMainComponent implements OnInit {
     }
     // this.loadChatGPT()
   }
-  loadChatGPT(){
-    const iconChatbotEl = this.elRef.nativeElement.querySelector('.icon-chatbot');
-    const chatbotContainerEl = this.elRef.nativeElement.querySelector('.chatbot-container');
-
-    iconChatbotEl.addEventListener('click', () => {
-      if (window.getComputedStyle(chatbotContainerEl).getPropertyValue('opacity') === '0') {
-        chatbotContainerEl.style.animation = 'show 0.5s ease-in-out forwards';
-      } else {
-        chatbotContainerEl.style.animation = 'hide 0.5s ease-in-out forwards';
-      }
-    });
-    const closeChatEl = this.elRef.nativeElement.querySelector('.close-chat');
-    const avatarEl = this.elRef.nativeElement.querySelector('.avatar');
-    const dropDownMenuEl = this.elRef.nativeElement.querySelector('.drop-down-menu');
-
-    closeChatEl.addEventListener('click', () => {
-      this.elRef.nativeElement.querySelector('.chatbot-container').style.animation = 'hide 0.5s ease-in-out forwards';
-    });
-
-    avatarEl.addEventListener('click', () => {
-      dropDownMenuEl.slideToggle();
-    });
-  }
   getNewPost(){
     return this.postService.newPost().subscribe(data=>{
       this.post = data;
+    })
+  }
+
+  searchRecipes(value) {
+    this.recipeService.getRecipeSearch(value).subscribe(data=>{
+      if (data.length==0){
+        this.toastrService.error(`Không có món ăn nào theo tên ${value}`);
+      }else {
+        sessionStorage.setItem('listRecipes',JSON.stringify(data));
+        this.router.navigate(['/listRecipe']);
+      }
     })
   }
 }

@@ -12,20 +12,25 @@ import java.util.List;
 @Service
 public class PostServices implements IPostServices {
     @Autowired
-    private IPostRepository iPostServices;
+    private IPostRepository iPostRepository;
     @Override
     public List<Post> findAll() {
-        return this.iPostServices.findAllDesc();
+        return this.iPostRepository.findAllDesc();
     }
 
     @Override
     public Post savePost(PostDTO postDTO) {
         Post post = new Post(postDTO);
-        return this.iPostServices.save(post);
+        return this.iPostRepository.save(post);
     }
 
     @Override
     public List<Post> getNewPost() {
-        return this.iPostServices.getNewPost();
+        return this.iPostRepository.getNewPost();
+    }
+
+    @Override
+    public Post findById(Integer id) {
+        return this.iPostRepository.findById(id).orElse(null);
     }
 }

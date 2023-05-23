@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HealthComponent } from './component/health/health.component';
-import { LifeComponent } from './component/life/life.component';
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../environments/environment";
 import {HttpClientModule} from "@angular/common/http";
@@ -13,7 +12,6 @@ import { BlogComponent } from './component/blog/blog.component';
 import { RecipeComponent } from './component/recipe/recipe.component';
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { ListRecipeComponent } from './component/list-recipe/list-recipe.component';
 import {LoginModule} from "./module/login/login.module";
 import {RegistorModule} from "./module/registor/registor.module";
 import {MainModule} from "./module/main/main.module";
@@ -26,10 +24,8 @@ import {NewPassModule} from "./module/new-pass/new-pass.module";
   declarations: [
     AppComponent,
     HealthComponent,
-    LifeComponent,
     BlogComponent,
     RecipeComponent,
-    ListRecipeComponent,
   ],
   imports: [
     BrowserModule,

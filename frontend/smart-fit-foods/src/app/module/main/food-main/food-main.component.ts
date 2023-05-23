@@ -37,6 +37,7 @@ export class FoodMainComponent implements OnInit {
   conflicFood: ConflicFood[] = [];
   chooseTypeFood=1;
   choiceFood:ChoiceFoods[]=[];
+  mapQA : Map<string, string>
   ngOnInit(): void {
     this.getAllFoodDetail();
     this.getAllFood();
@@ -74,12 +75,15 @@ export class FoodMainComponent implements OnInit {
     for (let item of this.recipeDetailDTOS){
       for (let conflic of this.conflicFood) {
         if (conflic.food_detail_id == item.food_detail_id && conflic.conflic_id == foodDetail.id) {
-          this.toarsrt.error(`${this.getNameFoodDetail(conflic.food_detail_id)} và ${this.getNameFoodDetail(foodDetail.id)}
-          có thể xung đột với nhau`)
+          document.getElementById("card-warning-id").style.display="block";
+          (document.getElementById("des-warning-id") as HTMLParamElement).textContent
+            =`${this.getNameFoodDetail(conflic.food_detail_id)} và ${this.getNameFoodDetail(foodDetail.id)}
+          có thể xung đột với nhau`;
+
         }
       }
       if (foodDetail.id==item.food_detail_id){
-        this.toarsrt.error("Bạn không thể thêm món ăn trùng nhau","Thông báo")
+        this.toarsrt.error("Bạn không thể thêm món ăn trùng nhau","Thông báo");
         flag= false;
         break;
       }
@@ -103,8 +107,9 @@ export class FoodMainComponent implements OnInit {
     this.recipeService.getMenu(this.recipeDetailDTOS).subscribe(data=>{
       this.recipes = data;
       this.recipeService.setListRecipe(this.recipes);
+      sessionStorage.setItem('listRecipes',JSON.stringify(this.recipes));
+      sessionStorage.removeItem('recipe');
       this.router.navigate(['/listRecipe']);
-
     })
   }
   clearFoodChoose() {
@@ -130,5 +135,20 @@ export class FoodMainComponent implements OnInit {
     return this.foodDetail.find(function (a) {
       return a.id == idFoodConflic;
     }).name
+  }
+
+  disableWarning() {
+    document.getElementById("card-warning-id").style.display="none";
+    this.choiceFood.pop();
+    this.recipeDetailDTOS.pop();
+  }
+
+  continueWarning() {
+    document.getElementById("card-warning-id").style.display="none";
+  }
+
+  viewDetailRecipe(item: Post) {
+    sessionStorage.setItem('recipe',JSON.stringify(item.recipe));
+    this.router.navigate(['/listRecipe']);
   }
 }

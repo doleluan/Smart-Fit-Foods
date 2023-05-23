@@ -12,11 +12,14 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { ProfileMainComponent } from './profile-main/profile-main.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import { ListRecipeMainComponent } from './list-recipe-main/list-recipe-main.component';
+import { ViewDetailPostComponent } from './view-detail-post/view-detail-post.component';
+import { HealthyMainComponent } from './healthy-main/healthy-main.component';
+import { LifeStyleComponent } from './life-style/life-style.component';
 
 
 
 @NgModule({
-  declarations: [MainComponent, HeaderMainComponent, FooterMainComponent, HomeMainComponent, FoodMainComponent, ChatComponent, ScheduleComponent, ProfileMainComponent, ViewRecipeComponent, ListRecipeMainComponent],
+  declarations: [MainComponent, HeaderMainComponent, FooterMainComponent, HomeMainComponent, FoodMainComponent, ChatComponent, ScheduleComponent, ProfileMainComponent, ViewRecipeComponent, ListRecipeMainComponent, ViewDetailPostComponent, HealthyMainComponent, LifeStyleComponent],
   imports: [
     CommonModule,
     RouterModule,

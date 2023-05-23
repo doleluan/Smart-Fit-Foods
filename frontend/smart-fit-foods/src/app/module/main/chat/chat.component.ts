@@ -4,6 +4,7 @@ import {ChatGPTService} from "../../../services/chatGPT/chat-gpt.service";
 import {UserService} from "../../../services/person/user.service";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-chat',
@@ -19,6 +20,7 @@ export class ChatComponent implements OnInit {
   loadAPI: any;
   currentDateTime: string;
   isDropDownMenuOpen: boolean = false;
+  mapQA : Map<string, string> = new Map<string, string>();
   constructor(private renderer: Renderer2,private elRef: ElementRef,private chatGPTService: ChatGPTService,private userService: UserService,
               private router: Router,private localLocation : Location) {
     let now = new Date();
@@ -42,6 +44,7 @@ export class ChatComponent implements OnInit {
     this.chatGPTService.changeMessage.subscribe(data=>{
       this.chatGPTService.askMenu().subscribe(data=>{
         this.answer.push(data.choices[0].text.trim());
+        this.mapQA.set(this.chatGPTService.getMessage(),data.choices[0].text.trim());
       })
     });
     this.getCurentUser();
@@ -61,9 +64,11 @@ export class ChatComponent implements OnInit {
 
   getGPT(value: string) {
     this.question.push(value);
+    this.mapQA.set(value,"");
     (document.getElementById("questionGPTId") as HTMLInputElement).value="";
     this.chatGPTService.askQuestion(value).subscribe(data=>{
       this.answer.push(data.choices[0].text.trim());
+      this.mapQA.set(value,data.choices[0].text.trim());
     })
   }
   getCurentUser(){

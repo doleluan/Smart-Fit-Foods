@@ -14,8 +14,12 @@ export class ListRecipeMainComponent implements OnInit {
   recipes:Recipe[]=[];
   recipe: Recipe;
   ngOnInit(): void {
-    this.recipes = this.recipeService.getListRecipe();
-    this.recipe = this.recipeService.getListRecipe()[0];
+    this.recipes = JSON.parse(sessionStorage.getItem('listRecipes'));
+    if (sessionStorage.getItem('recipe')){
+      this.recipe = JSON.parse(sessionStorage.getItem('recipe'));
+    }else {
+      this.recipe = this.recipes[0];
+    }
   }
   getRecipe(item: Recipe) {
     this.recipe = item;
