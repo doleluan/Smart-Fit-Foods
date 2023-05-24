@@ -16,9 +16,8 @@ public interface IUserRepository extends JpaRepository<Users,Integer> {
     @Query(value = "select * from users where users.username = :username",nativeQuery = true)
     Optional<Users> findByUsername(@Param("username") String username);
     @Query(value = "select distinct users.username,users.gender_id,users.address,users.id,users.name,users.avatar,users.phone_number,users.gender_id from users " +
-            "join account on users.username= account.username join account_roles on account.username = account_roles.username where users.username like concat('%',:username,'%') " +
-            "and users.address like concat('%',:address,'%') and users.name like concat('%',:name,'%')" +
-            " and users.phone_number like concat('%',:phone_number,'%') and account_roles.role= :roles and account.flag=0",nativeQuery = true)
-    Page<Users> findAllUser(@Param("username") String username, @Param("address") String address,
-                                  @Param("phone_number") String phone_number, @Param("name") String name, Pageable pageable,@Param("roles") Integer roles);
+            "join account on users.username= account.username join account_roles on account.username = account_roles.username where (users.username like concat('%',:username,'%') " +
+            " or users.name like concat('%',:name,'%'))" +
+            " and account_roles.role= :roles and account.flag=0",nativeQuery = true)
+    Page<Users> findAllUser(@Param("username") String username,@Param("name") String name, Pageable pageable,@Param("roles") Integer roles);
 }

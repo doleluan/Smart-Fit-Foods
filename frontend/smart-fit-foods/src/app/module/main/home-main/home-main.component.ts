@@ -51,4 +51,10 @@ export class HomeMainComponent implements OnInit {
       }
     })
   }
+
+  getDetailPost(item: Post) {
+    console.log(item)
+    localStorage.setItem('post',JSON.stringify(item));
+    this.router.navigate(['viewPost'])
+  }
 }

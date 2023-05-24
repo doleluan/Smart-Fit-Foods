@@ -15,6 +15,6 @@ public interface IUserServices {
     Users saveUser(UserDTO userDTO);
     Users findByUserName(String userName);
     UserInfo editUser(UserEditDTO userEditDTO);
-    Page<Users> findAllUsers(String username, String address, String phone_number, String name, Pageable pageable,Integer roles);
+    Page<Users> findAllUsers(String username, String name, Pageable pageable,Integer roles);
 
 }

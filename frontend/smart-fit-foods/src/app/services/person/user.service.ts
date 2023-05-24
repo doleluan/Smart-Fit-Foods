@@ -15,6 +15,7 @@ export class UserService {
   };
   constructor(private httpClient: HttpClient) { }
   registor(user){
+    console.log(user);
     return this.httpClient.post(`${this.URL}/registration`,user)
   }
   login(user){

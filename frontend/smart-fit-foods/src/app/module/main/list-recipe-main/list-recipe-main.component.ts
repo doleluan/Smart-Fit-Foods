@@ -17,6 +17,7 @@ export class ListRecipeMainComponent implements OnInit {
     this.recipes = JSON.parse(sessionStorage.getItem('listRecipes'));
     if (sessionStorage.getItem('recipe')){
       this.recipe = JSON.parse(sessionStorage.getItem('recipe'));
+      console.log(this.recipe);
     }else {
       this.recipe = this.recipes[0];
     }

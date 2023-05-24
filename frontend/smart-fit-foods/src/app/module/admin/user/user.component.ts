@@ -14,16 +14,15 @@ export class UserComponent implements OnInit {
   totalPages: number;
   nameSearch: string = "";
   usernameSearch: string = "";
-  phone_numberSearch: string = "";
-  addressSearch: string = "";
   constructor(private adminService: AdminService,private toastrService: ToastrService) { }
 
   ngOnInit(): void {
-    this.getAllUsers(this.usernameSearch,this.addressSearch,this.nameSearch,this.phone_numberSearch,0);
+    this.getAllUsers(this.usernameSearch,this.nameSearch,0);
   }
-  getAllUsers(usernameSearch,addressSearch,phone_numberSearch,nameSearch,pageNumber){
-    this.adminService.getAllUser(usernameSearch,addressSearch,phone_numberSearch,nameSearch,pageNumber).subscribe(data=>{
+  getAllUsers(usernameSearch,nameSearch,pageNumber){
+    this.adminService.getAllUser(usernameSearch,nameSearch,pageNumber).subscribe(data=>{
         this.users= data.content;
+      console.log(this.users);
         if (this.users.length==0){
           this.toastrService.error("Không có người dùng nào theo kết quả tìm kiếm.");
           return;
@@ -39,7 +38,20 @@ export class UserComponent implements OnInit {
   removeUser(user: User) {
     let username = user.username.username;
     this.adminService.deleteUser(username).subscribe(data=>{
-      this.getAllUsers(this.usernameSearch,this.addressSearch,this.nameSearch,this.phone_numberSearch,this.pageNumber)
+      this.getAllUsers(this.usernameSearch,this.nameSearch,this.pageNumber)
+    })
+  }
+
+  searchUser(value: string) {
+    this.adminService.getAllUser(value,value,0).subscribe(data=>{
+      this.users= data.content;
+      console.log(this.users);
+      if (this.users.length==0){
+        this.toastrService.error("Không có người dùng nào theo kết quả tìm kiếm.");
+        return;
+      }
+      this.pageNumber = data.number;
+      this.totalPages = data.totalPages;
     })
   }
 }

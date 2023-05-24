@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, Renderer2} from '@angular/core';
 import {UserDTO} from "../../../dto/UserDTO";
 import {ChatGPTService} from "../../../services/chatGPT/chat-gpt.service";
 import {UserService} from "../../../services/person/user.service";
@@ -20,6 +20,7 @@ export class HeaderMainComponent implements OnInit {
   loadAPI: any;
   currentDateTime: string;
   isDropDownMenuOpen: boolean = false;
+  isHeaderScrolled = false;
   constructor(private renderer: Renderer2,private elRef: ElementRef,private chatGPTService: ChatGPTService,private userService: UserService,
               private router: Router,private localLocation : Location) {
     let now = new Date();
@@ -35,7 +36,10 @@ export class HeaderMainComponent implements OnInit {
     node.charset = 'utf-8';
     document.getElementsByTagName('head')[0].appendChild(node);
   }
-
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.isHeaderScrolled = (window.pageYOffset > 0);
+  }
   ngOnInit(): void {
     this.loadAPI = new Promise(resolve => {
       this.loadScript();

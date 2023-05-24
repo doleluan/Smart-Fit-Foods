@@ -1,5 +1,11 @@
 <div class="container-fluid" id="list-user" style="padding: 0 80px; margin-top: 83px; width: 1660px">
-  <h3 style="color: #000; margin-bottom: 20px;">Danh sách User</h3>
+  <div style="display: flex; align-items: center; margin-bottom: 20px;">
+    <h3 style="color: #000; ">Danh sách người dùng</h3>
+    <input #inputSearch style="border-radius: 20px; margin-left: 20px; width: 280px;padding-left: 10px"  type="text" placeholder="Tìm kiếm" class="form-control">
+    <i (click)="searchUser(inputSearch.value)" class="fa-solid fa-magnifying-glass" style="font-size: 30px;
+    color: #333; margin-left: 20px"></i>
+  </div>
+
   <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="cards">
       <div class="body">
@@ -8,12 +14,12 @@
             <thead class="thead-dark">
             <tr>
               <th class="text-center">STT</th>
-              <th class="text-center">Full Name</th>
-              <th class="text-center">Avatar</th>
-              <th class="text-center">Address</th>
+              <th class="text-center">Họ và tên </th>
+              <th class="text-center">Ảnh đại diện</th>
+              <th class="text-center">Địa chỉ</th>
               <th class="text-center">Email</th>
-              <th class="text-center">Phone Number</th>
-              <th class="text-center" style="width: 200px;">Action</th>
+              <th class="text-center">Số điện thoại</th>
+              <th class="text-center" style="width: 200px;">Hành động</th>
             </tr>
             </thead>
             <tbody>
@@ -39,7 +45,7 @@
               <td class="text-center align-middle"
                   style="display:flex; align-items: center; justify-content: center;">
                 <button (click)="removeUser(user)" class="btn btn-sm round btn-outline-danger"
-                        style="display: block; background: rgba(255, 0, 0, 0.54);   color: #fff;  width: 50%; padding: 8px;">Remove</button>
+                        style="display: block; background: rgba(255, 0, 0, 0.54);   color: #fff;  width: 50%; padding: 8px;">Xóa</button>
               </td>
             </tr>
             </tbody>
@@ -53,15 +59,15 @@
   </div>
 </div>
 <!--page-->
-<div>
+<div style="text-align: center">
   <ul class="pagination justify-content-center">
     <li class="page-item">
       <a class="page-link">
-        <i class="fa-solid fa-backward-fast"  (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,0)"></i>
+        <i class="fa-solid fa-backward-fast"  (click)="getAllUsers(usernameSearch,nameSearch,0)"></i>
       </a>
     </li>
     <li>
-      <a class="page-link" *ngIf="pageNumber != 0 ? 'disable': ''" (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,pageNumber-1)">
+      <a class="page-link" *ngIf="pageNumber != 0 ? 'disable': ''" (click)="getAllUsers(usernameSearch,nameSearch,pageNumber-1)">
         <i class="fa-solid fa-backward"></i>
       </a>
     </li>
@@ -75,13 +81,13 @@
 
       <ng-container *ngIf="i < 3 || i >= totalPages - 3">
         <a class="page-link" [ngClass]="pageNumber == i ? 'current': ''"
-           (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,i)">
+           (click)="getAllUsers(usernameSearch,nameSearch,i)">
           {{i + 1}}
         </a>
       </ng-container>
       <ng-container *ngIf="3 <= i && i < totalPages - 3 &&(i == pageNumber + 1 || i== pageNumber-1 || i ==pageNumber)">
         <a class="page-link" [ngClass]="pageNumber == i ? 'current': ''"
-           (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,i)">
+           (click)="getAllUsers(usernameSearch,nameSearch,i)">
           {{i + 1}}
         </a>
       </ng-container>
@@ -92,13 +98,13 @@
       </ng-container>
     </li>
     <li>
-      <a class="page-link"  *ngIf="pageNumber < totalPages - 1 ? 'disable': ''" (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,pageNumber+1)">
+      <a class="page-link"  *ngIf="pageNumber < totalPages - 1 ? 'disable': ''" (click)="getAllUsers(usernameSearch,nameSearch,pageNumber+1)">
         <i class="fa-solid fa-forward"></i>
       </a>
     </li>
     <li class="page-item">
       <a class="page-link">
-        <i class="fa-solid fa-forward-fast" (click)="getAllUsers(usernameSearch,addressSearch,nameSearch,phone_numberSearch,totalPages-1)"></i> </a>
+        <i class="fa-solid fa-forward-fast" (click)="getAllUsers(usernameSearch,nameSearch,totalPages-1)"></i> </a>
     </li>
     <li class="page-item">
       <span class="page-link">{{pageNumber + 1}} / {{totalPages}}</span>

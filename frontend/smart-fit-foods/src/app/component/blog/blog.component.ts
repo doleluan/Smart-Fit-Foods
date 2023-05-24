@@ -146,4 +146,5 @@ export class BlogComponent implements OnInit {
       this.getPost();
     })
   }
+
 }

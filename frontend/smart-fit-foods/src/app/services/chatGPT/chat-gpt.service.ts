@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ChatGPTService {
+
   message: string;
   changeMessage: EventEmitter<String> = new EventEmitter<String>();
   constructor(private httpClient: HttpClient) { }

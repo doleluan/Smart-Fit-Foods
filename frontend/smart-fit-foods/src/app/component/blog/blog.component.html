@@ -50,74 +50,7 @@
                   </div>
                 </div>
               </div>
-              <div class="modal-baidang" style="display: none;">
-                <div class="modal-body" style="padding: 0 0 10px 0;">
-                  <div class="cls"
-                       style="cursor: pointer; position: absolute;right: 30px;  background: #3333;  padding: 10px 15px;border-radius: 100px;">
-                    <i class="fa-solid fa-xmark"></i>
-                  </div>
-                  <div class="detail-in ">
-                    <div class="containers">
-                      <h2 style="font-weight: bold;">Bài đăng</h2>
-                      <div class="list-menu"
-                           style="width: 900px; max-width: 900px; margin: 0 auto; text-align: left">
-                        <form [formGroup]="formGroup" class="congthuc">
-                          <div class="form-group tencongthuc" style="text-align: left;">
-                            <label><b>Tiêu đề</b></label> <br>
-                            <input class="form-control" formControlName="title" name="cook_name" type="text">
-                          </div>
-                          <div>
-                            <span>&nbsp;</span>
-                            <span
-                              *ngIf="formGroup.controls.title.hasError('required') && formGroup.controls.title.touched"
-                              style="color: red">Tiêu đề không được để trống</span>
-                          </div>
-                          <div style="text-align: left">
-                            <label><b>Hình ảnh</b></label> <br>
-                            <label for="blogid">
-                              <img class="profile-pic" id="recipes-imgs-firebase" src="../../../assets/images/logo.png"
-                                   style="width: 100px;height: 100px"/>
-                            </label>
-                            <input (change)="addFile($event)" accept="image/*" class="form-control" formControlName="file"
-                                   id="blogid" name="cook_name" style="display: none" type="file">
-                          </div>
-                          <div style="text-align: left">
-                            <span>&nbsp;</span>
-                            <span *ngIf="formGroup.controls.file.hasError('required')" style="color: red">Hình ảnh không được để trống</span>
-                          </div>
-                          <div class=" mota" style="text-align: left;margin-top: 20px">
-                            <label><b>Mô tả</b></label> <br>
-                            <textarea class="form-control" cols="50" formControlName="description"
-                                      rows="4"></textarea>
-                          </div>
-                          <div>
-                            <span>&nbsp;</span>
-                            <span
-                              *ngIf="formGroup.controls.description.hasError('required') && formGroup.controls.description.touched"
-                              style="color: red">Mô tả không được để trống</span>
-                          </div>
-                          <!--                            <div class="form-group linkct" style="text-align: left;">-->
-                          <!--                              <label><b>Link Công thức</b></label> <br>-->
-                          <!--                              <input type="text" name="link" class="form-control"-->
-                          <!--                                     style="padding: 6px 15px; border-radius: 10px; border: none;">-->
-                          <!--                            </div>-->
-                          <div class="form-group">
-                            <label><b>Link Công thức</b></label> <br>
-                            <select class="form-control" formControlName="recipe">
-                              <option *ngFor="let itemRecipe of this.recipes"
-                                      [ngValue]="itemRecipe">{{itemRecipe.name}}</option>
-                            </select>
-                          </div>
-                          <button (click)="addnewPost()" *ngIf="formGroup.valid" class="btn btn-success" name="submit"
-                                  type="submit">Đăng
-                            bài
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
           <div class="wpb_wrapper">
@@ -159,7 +92,6 @@
                       <div class="text show-more-height">
                         {{item.description}}
                       </div>
-                      <div class="show-more">(Show More)</div>
                     </div>
                   </div>
                 </div>

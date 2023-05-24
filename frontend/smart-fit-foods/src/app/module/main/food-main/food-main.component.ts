@@ -148,6 +148,7 @@ export class FoodMainComponent implements OnInit {
   }
 
   viewDetailRecipe(item: Post) {
+    console.log(item)
     sessionStorage.setItem('recipe',JSON.stringify(item.recipe));
     this.router.navigate(['/listRecipe']);
   }
