@@ -55,7 +55,8 @@ public class UserServices implements IUserServices {
         users.setAvatar("https://firebasestorage.googleapis.com/v0/b/capstone2-e8f43.appspot.com/o/avatarUser%2Fusers.png?alt=media&token=a4162b9d-804d-4295-9cdd-52ae8878f430");
         users.setGender(new Gender(1,""));
         userDTO.setUsername("");
-        users.setAddress("");
+        users.setAddress("Unknown");
+        users.setName("Unknown");
         users.setPhone_number("");
         return iUserRepository.save(users);
     }
@@ -78,8 +79,7 @@ public class UserServices implements IUserServices {
     }
 
     @Override
-    public Page<Users> findAllUsers(String username, String address, String phone_number, String name, Pageable pageable,Integer roles) {
-        System.out.println(username+address+phone_number+name);
-        return this.iUserRepository.findAllUser("","","","",pageable,roles);
+    public Page<Users> findAllUsers(String username, String name, Pageable pageable,Integer roles) {
+        return this.iUserRepository.findAllUser(username,name,pageable,roles);
     }
 }

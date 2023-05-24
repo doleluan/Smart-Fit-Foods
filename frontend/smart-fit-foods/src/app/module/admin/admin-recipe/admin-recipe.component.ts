@@ -33,4 +33,16 @@ export class AdminRecipeComponent implements OnInit {
   removeUser(item: Recipe) {
 
   }
+
+  searchRecipe(value: string) {
+    this.adminService.getAllRecipes(value,0).subscribe(data=>{
+      this.recipes= data.content;
+      if (this.recipes.length==0){
+        this.toastrService.error("Không có người dùng nào theo kết quả tìm kiếm.");
+        return;
+      }
+      this.pageNumber = data.number;
+      this.totalPages = data.totalPages;
+    })
+  }
 }

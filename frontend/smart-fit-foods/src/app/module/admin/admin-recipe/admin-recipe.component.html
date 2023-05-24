@@ -1,5 +1,11 @@
 <div class="container-fluid" id="list-user" style="padding: 0 80px; margin-top: 83px; width: 1660px">
-  <h3 style="color: #000; margin-bottom: 20px;">Danh Sách Món ăn</h3>
+  <  <div style="display: flex; align-items: center; margin-bottom: 20px;">
+  <h3 style="color: #000; ">Danh sách món ăn</h3>
+  <input #inputSearch style="border-radius: 20px; margin-left: 20px; width: 280px; padding-left: 10px"  type="text" placeholder="Search here..." class="form-control">
+  <i (click)="searchRecipe(inputSearch.value)" class="fa-solid fa-magnifying-glass" style="font-size: 30px;
+    color: #333; margin-left: 20px"></i>
+</div>
+
   <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="cards">
       <div class="body">
@@ -8,9 +14,9 @@
             <thead class="thead-dark">
             <tr>
               <th class="text-center">STT</th>
-              <th class="text-center">Name</th>
-              <th class="text-center">Image</th>
-              <th class="text-center" style="width: 200px;">Action</th>
+              <th class="text-center">Tên món ăn</th>
+              <th class="text-center">Hình ảnh</th>
+<!--              <th class="text-center" style="width: 200px;">Hành động</th>-->
             </tr>
             </thead>
             <tbody>
@@ -22,11 +28,11 @@
               <td class="text-center">
                 <img style="width: 35px; height: 35px;"src="{{item?.imgs.split('capstone2Sff')[0]}}" alt="">
               </td>
-              <td class="text-center align-middle"
-                  style="display:flex; align-items: center; justify-content: center;">
-                <button (click)="removeUser(item)" class="btn btn-sm round btn-outline-danger"
-                        style="display: block; background: rgba(255, 0, 0, 0.54);   color: #fff;  width: 50%; padding: 8px;">Remove</button>
-              </td>
+<!--              <td class="text-center align-middle"-->
+<!--                  style="display:flex; align-items: center; justify-content: center;">-->
+<!--                <button (click)="removeUser(item)" class="btn btn-sm round btn-outline-danger"-->
+<!--                        style="display: block; background: rgba(255, 0, 0, 0.54);   color: #fff;  width: 50%; padding: 8px;">Xóa</button>-->
+<!--              </td>-->
             </tr>
             </tbody>
           </table>
@@ -39,7 +45,7 @@
   </div>
 </div>
 <!--page-->
-<div>
+<div style="text-align: center">
   <ul class="pagination justify-content-center">
     <li class="page-item">
       <a class="page-link">

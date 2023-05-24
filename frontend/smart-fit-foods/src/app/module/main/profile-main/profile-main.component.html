@@ -51,7 +51,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="fullname">Họ và tên:</label><br>
-                    <input  formControlName="name" class="form-control" type="text" id="fullname"/>
+                    <input style="padding: 8px 20px"  formControlName="name" class="form-control" type="text" id="fullname"/>
                     <span *ngIf="formGroup.get('name').hasError('required') && formGroup.get('name').touched" style="color: red">Họ tên không đạt yêu cầu</span>
 
                   </div>
@@ -59,14 +59,14 @@
                     <label >Địa chỉ:</label><br>
                     <p>{{this.userCurrent?.address}}</p>
                     <div style="display: flex;" >
-                      <select  (change)="handleProvinceChangeProvinces($event)" class="select form-control">
+                      <select style="padding: 0" (change)="handleProvinceChangeProvinces($event)" class="select form-control">
                         <option [ngValue]="item.name" *ngFor="let item of this.provinces">{{item.name}}</option>
                       </select>
-                      <select class="select form-control" (change)="handleProvinceDistricts($event)" [disabled]="!this.isChooseProvinces">
+                      <select style="padding: 0" class="select form-control" (change)="handleProvinceDistricts($event)" [disabled]="!this.isChooseProvinces">
                         <option *ngIf="!this.provincesChoice">Hãy Chọn Tỉnh/Thành</option>
                         <option [ngValue]="item.name" *ngFor="let item of this.provincesChoice?.districts">{{item.name}}</option>
                       </select>
-                      <select (change)="handleWards($event)"  class="test form-control" [disabled]="!this.isChooseDistrict">
+                      <select style="padding: 0" (change)="handleWards($event)"  class="test form-control" [disabled]="!this.isChooseDistrict">
                         <option *ngIf="!this?.districtsChoice"> Hãy Chọn Quận/Huyện</option>
                         <option  [ngValue]="item.name" *ngFor="let item of this?.districtsChoice?.wards">{{item.name}}</option>
                       </select>
@@ -81,7 +81,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="gender">Giới tính:</label><br>
-                    <select formControlName="gender" class="form-control" style="border-radius: 10px;" id="gender">
+                    <select formControlName="gender" class="form-control" style="border-radius: 10px; padding: 8px 20px" id="gender">
                       <option selected [ngValue]="this.userCurrent.gender" *ngIf="userCurrent.gender">{{userCurrent.gender.name}}</option>
                       <option  [hidden]="this.userCurrent?.gender?.id==item.id"  [ngValue]="item" value="male" *ngFor="let item of this.genders" >{{item.name}}</option>
 
@@ -89,7 +89,7 @@
                   </div>
                   <div class="form-group">
                     <label for="phone">Số điện thoại:</label><br>
-                    <input formControlName="phone_number" class="form-control" type="text" id="phone" name="phone" />
+                    <input style="padding: 8px 20px" formControlName="phone_number" class="form-control" type="text" id="phone" name="phone" />
                     <span></span>
                     <span>
                         <span *ngIf="(formGroup.get('phone_number').hasError('pattern') || formGroup.get('phone_number').hasError('required')) && formGroup.get('phone_number').touched" style="color: red">Số điện thoại không đạt yêu cầu</span>

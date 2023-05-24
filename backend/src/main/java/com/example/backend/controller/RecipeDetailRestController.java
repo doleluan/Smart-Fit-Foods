@@ -19,5 +19,4 @@ public class RecipeDetailRestController {
     private ResponseEntity<List<RecipeDetail>> findAll(){
         return new ResponseEntity<>(this.iRecipeDetailServices.findAll(), HttpStatus.OK);
     }
-
 }

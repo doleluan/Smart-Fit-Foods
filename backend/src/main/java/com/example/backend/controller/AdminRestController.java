@@ -25,19 +25,15 @@ public class AdminRestController {
     private static final int MAX_DISPLAY = 5;
     @GetMapping("/users")
     public ResponseEntity<Page<Users>> findAllUser(@RequestParam(name="username",defaultValue = "") String username,
-                                                         @RequestParam(name="address",defaultValue = "") String address,
-                                                         @RequestParam(name="phone_number",defaultValue = "") String phone_number,
                                                          @RequestParam(name="name",defaultValue = "") String name,
                                                          @PageableDefault(size = MAX_DISPLAY) Pageable pageable){
-        return new ResponseEntity<>(this.iUserServices.findAllUsers(username,address,phone_number,name,pageable,1), HttpStatus.OK);
+        return new ResponseEntity<>(this.iUserServices.findAllUsers(username,name,pageable,1), HttpStatus.OK);
     }
     @GetMapping("/employees")
     public ResponseEntity<Page<Users>> findAllEmployees(@RequestParam(name="username",defaultValue = "") String username,
-                                                   @RequestParam(name="address",defaultValue = "") String address,
-                                                   @RequestParam(name="phone_number",defaultValue = "") String phone_number,
                                                    @RequestParam(name="name",defaultValue = "") String name,
                                                    @PageableDefault(size = MAX_DISPLAY) Pageable pageable){
-        return new ResponseEntity<>(this.iUserServices.findAllUsers(username,address,phone_number,name,pageable,2), HttpStatus.OK);
+        return new ResponseEntity<>(this.iUserServices.findAllUsers(username,name,pageable,2), HttpStatus.OK);
     }
     @DeleteMapping("/deleteUser")
     public ResponseEntity<?> deleteUser(@RequestParam(name = "username") String username){
@@ -51,6 +47,10 @@ public class AdminRestController {
     }
     @GetMapping("/listRecipe")
     public ResponseEntity<?> listRecipe(@RequestParam(name = "name") String name, @PageableDefault(size = MAX_DISPLAY) Pageable pageable){
-            return new ResponseEntity<>(this.iRecipeServices.findAll("",pageable),HttpStatus.OK);
+            return new ResponseEntity<>(this.iRecipeServices.findAll(name,pageable),HttpStatus.OK);
+    }
+    @GetMapping("/listPost")
+    public ResponseEntity<?> listPost(@RequestParam(name = "name") String name, @PageableDefault(size = MAX_DISPLAY) Pageable pageable){
+        return new ResponseEntity<>(this.iRecipeServices.findAll(name,pageable),HttpStatus.OK);
     }
 }

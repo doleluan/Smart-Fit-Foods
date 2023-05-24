@@ -22,6 +22,7 @@ import {ViewDetailPostComponent} from "./module/main/view-detail-post/view-detai
 import {AdminRecipeComponent} from "./module/admin/admin-recipe/admin-recipe.component";
 import {HealthyMainComponent} from "./module/main/healthy-main/healthy-main.component";
 import {LifeStyleComponent} from "./module/main/life-style/life-style.component";
+import {AddPostAdminComponent} from "./module/admin/add-post-admin/add-post-admin.component";
 
 
 const routes: Routes = [
@@ -114,6 +115,10 @@ const routes: Routes = [
       {
         path: "recipe",
         component: AdminRecipeComponent
+      },
+      {
+        path: "post",
+        component: AddPostAdminComponent
       }
     ]
   },

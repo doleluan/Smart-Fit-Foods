@@ -11,7 +11,7 @@
             class="vc_empty_space_inner"></span></div>
           <h1 style="font-size: 40px;color: #ffffff;line-height: 40px;text-align: left;font-family:Cherry Swash;font-weight:700;font-style:normal"
               class="vc_custom_heading">Smart Fit Foods<br />
-            thậm chí còn tốt hơn một cuốn dạy nấu ăn đắt tiền</h1>
+            thậm chí còn tốt hơn một cuốn sách dạy nấu ăn đắt tiền</h1>
           <div class="vc_empty_space" style="height: 10px"><span class="vc_empty_space_inner"></span>
           </div>
           <h4 style="font-size: 20px;color: #ffffff;line-height: 20px;text-align: left;font-family:Ubuntu;font-weight:400;font-style:normal"
@@ -22,14 +22,14 @@
             <div class="foodhub-header-searchform">
               <form  style="width: 65%;">
                 <input type="hidden" name="post_type" value="mt_listing" />
-                <div class="row">
+                <div class="row" style="width: 920px">
                   <div class="slider-state-search col-md-7 ">
                     <input #searchRecipe style="color:#fff;" type="search" class="search-field form-control"
                            placeholder="Bạn muốn tìm..." value="" name="s" id="keyword" />
                   </div>
                   <div class="slider-state-submit col-md-1  submit">
                     <button (click)="searchRecipes(searchRecipe.value)" type="submit" class="form-control btn btn-warning"><i
-                      class="fa fa-search" aria-hidden="true"></i></button>
+                      class="fa fa-search" aria-hidden="true" style="font-size: 18px"></i></button>
                   </div>
                 </div>
               </form>
@@ -53,7 +53,7 @@
           <div class="penci-wrapper-posts-content">
             <ul class="penci-wrapper-data penci-grid">
               <!-- item -->
-              <li *ngFor="let item of this.post" class="grid-style grid-2-style">
+              <li (click)="getDetailPost(item)" *ngFor="let item of this.post" class="grid-style grid-2-style">
                 <article class="item">
                   <div class="thumbnail">
                     <a class="penci-image-holder"

@@ -262,6 +262,8 @@ jQuery(document).ready(function () {
       start: '2023-05-10T14:00:00',
       end: '2023-05-10T16:00:00'
     },
+
+
   ];
   jQuery(".btn-taolich").click(function () {
     jQuery(this).css("display", "none");
@@ -347,6 +349,9 @@ jQuery(document).ready(function () {
 // jQuery(".upload-button").on('click', function () {
 //   jQuery(".file-upload").click();
 // });
+
+
+
 jQuery('.nav-item a').click(function (e) {
   e.preventDefault();
   jQuery('.nav-item a.active').removeClass('active');

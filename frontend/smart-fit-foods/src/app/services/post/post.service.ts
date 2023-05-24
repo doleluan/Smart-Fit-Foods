@@ -22,4 +22,7 @@ export class PostService {
   newPost(){
     return this.httpClient.get<Post[]>(`${this.URL}/newPost`)
   }
+  getPostById(id){
+    return this.httpClient.get<Post>(`${this.URL}/getPost/${id}`);
+  }
 }
